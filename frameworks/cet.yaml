@@ -1,0 +1,43 @@
+id: cet
+names: ["Cyber Engine Tweaks", "CET"]
+ids: {github: maximegmd/CyberEngineTweaks}
+kind: framework
+gate: hard_exact
+detect:
+  paths: ["bin/x64/plugins/cyber_engine_tweaks"]   # provisional: confirm on the Windows rig (T4)
+sources:
+  - {kind: github_release, url: "https://github.com/maximegmd/CyberEngineTweaks/releases"}
+releases:
+  - version: "1.38.1"
+    date: 2026-10-26
+    game: {min: "2.5", max: "2.5"}
+    requires:
+      - {mod: red4ext, version: ">=1.31.0"}   # CET is loaded by RED4ext
+    sha256:
+      bin/x64/plugins/cyber_engine_tweaks.asi: f0acdad154bd0033583e0f6e675ea18b4bdb60cda28133d792a4674e6d7f228a
+    asset: {url: "https://github.com/maximegmd/CyberEngineTweaks/releases/download/v1.38.1/cet_1_38_1.zip", sha256: 2e52be4ed431fad787e64ecbf75db346b4224577d2b89894912bc3f159020e73}
+    evidence:
+      - {kind: code, url: "https://github.com/maximegmd/CyberEngineTweaks/blob/213151fa22c79182922a08a44e4a44d44739d1cd/src/Options.cpp#L190", observed: 2026-10-30}
+      - {kind: readme, url: "https://github.com/maximegmd/CyberEngineTweaks/blob/213151fa22c79182922a08a44e4a44d44739d1cd/README.md#L45", observed: 2026-10-30}
+  - version: "1.38.0"
+    date: 2026-10-22
+    game: {min: "2.5", max: "2.5"}
+    requires:
+      - {mod: red4ext, version: ">=1.31.0"}
+    sha256:
+      bin/x64/plugins/cyber_engine_tweaks.asi: acb12b25cfcf77c3f5a84df7cd4f4ae5074b8269e7c7389f349e12b237f88d6e
+    asset: {url: "https://github.com/maximegmd/CyberEngineTweaks/releases/download/v1.38.0/cet_1_38_0.zip", sha256: 6da2e91b07d5ea9dd4aa32145b2c2920a976abee481854976e2ae82169b612e1}
+    evidence:
+      - {kind: code, url: "https://github.com/maximegmd/CyberEngineTweaks/blob/ed706fb8518712ffedf6b566e52873b257bc49fb/src/Options.cpp#L190", observed: 2026-10-30}
+      - {kind: readme, url: "https://github.com/maximegmd/CyberEngineTweaks/blob/ed706fb8518712ffedf6b566e52873b257bc49fb/README.md#L45", observed: 2026-10-30}
+  - version: "1.37.1"
+    date: 2025-09-28
+    game: {min: "2.31", max: "2.31"}
+    requires:
+      - {mod: red4ext, version: ">=1.29.1"}
+    sha256:
+      bin/x64/plugins/cyber_engine_tweaks.asi: 43a7b94698979703f9dfa2b0950607c9a88f53b84bbf09a8e593c7e218d41059
+    asset: {url: "https://github.com/maximegmd/CyberEngineTweaks/releases/download/v1.37.1/cet_1.37.1.zip", sha256: 1855017796a27f518199f5b7d7210ef1db7a5c5f0af468c68e04e6e666ad248c}
+    evidence:
+      - {kind: code, url: "https://github.com/maximegmd/CyberEngineTweaks/blob/61bd6214f0f5f8748589c9e476538614a13908c0/src/Options.cpp#L190", observed: 2026-10-30}
+      - {kind: readme, url: "https://github.com/maximegmd/CyberEngineTweaks/blob/61bd6214f0f5f8748589c9e476538614a13908c0/README.md#L45", observed: 2026-10-30}

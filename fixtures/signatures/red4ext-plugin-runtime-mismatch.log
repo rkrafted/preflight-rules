@@ -1,0 +1,2 @@
+# captured: https://github.com/WopsS/RED4ext/issues/76
+[2024-11-26 23:27:02.082] [RED4ext] [warning] CTD Helper (version: 0.1.3) is incompatible with the current patch. The requested runtime of the plugin is 3.0.72.54038

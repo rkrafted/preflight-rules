@@ -1,0 +1,42 @@
+id: equipmentex
+names: ["Equipment-EX", "EquipmentEx"]
+ids: {github: psiberx/cp2077-equipment-ex}
+kind: framework
+gate: runtime_independent
+detect:
+  paths: ["r6/scripts/EquipmentEx/EquipmentEx.reds"]   # provisional: confirm on the Windows rig (T4)
+sources:
+  - {kind: github_release, url: "https://github.com/psiberx/cp2077-equipment-ex/releases"}
+releases:
+  - version: "1.2.9-rc.1"
+    date: 2026-03-08
+    channel: rc
+    game: {min: "2.3", max: "2.31"}
+    requires:
+      - {mod: codeware, version: ">=1.18.0"}
+      - {mod: archivexl, version: ">=1.26.0"}
+      - {mod: tweakxl, version: ">=1.11.3"}
+    sha256:
+      r6/scripts/EquipmentEx/EquipmentEx.reds: 8a28fe3dad71d8111c04f2eca28bf904606fb74f49e27f3d9a222af1375443ab
+      r6/scripts/EquipmentEx/EquipmentEx.Global.reds: f2733852f9da51f9b04b2cabeba0294aef62fbffe8f3eadbd2236b50a6e62278
+      archive/pc/mod/EquipmentEx.archive: 55a438e9315ca227f12f90aacec0711914bd9241e60307242c204410f45ecf8e
+    evidence:
+      - {kind: code, url: "https://github.com/psiberx/cp2077-equipment-ex/blob/3208ff4c1caa2e3f08c3e20a8e7c3e6b1e95124d/scripts/CompatibilityManager.reds#L4", observed: 2026-10-30}
+      - {kind: code, url: "https://github.com/psiberx/cp2077-equipment-ex/blob/3208ff4c1caa2e3f08c3e20a8e7c3e6b1e95124d/scripts/CompatibilityManager.reds#L5", observed: 2026-10-30}
+      - {kind: code, url: "https://github.com/psiberx/cp2077-equipment-ex/blob/3208ff4c1caa2e3f08c3e20a8e7c3e6b1e95124d/scripts/CompatibilityManager.reds#L6", observed: 2026-10-30}
+  - version: "1.2.7"
+    date: 2024-12-13
+    game: {min: "2.2", max: "2.2"}
+    requires:
+      - {mod: codeware, version: ">=1.12.7"}
+      - {mod: archivexl, version: ">=1.16.9"}
+      - {mod: tweakxl, version: ">=1.10.4"}
+    sha256:
+      r6/scripts/EquipmentEx/EquipmentEx.reds: 981ed2333bd5bf3c51c008c795df2e1cf171cf69c8852958cb9877305f095766
+      r6/scripts/EquipmentEx/EquipmentEx.Global.reds: 4520c8adb56351dc7e00e0e7928f34cd631bdb6c579d42304aa0955afcf0ede1
+      archive/pc/mod/EquipmentEx.archive: 260d7f4dbfc106b5cc6131e293fc591d83d6907dcd5f2ab1c93f8a5b77835372
+    asset: {url: "https://github.com/psiberx/cp2077-equipment-ex/releases/download/v1.2.7/EquipmentEx-1.2.7.zip", sha256: 02557029e1277e67004fd876e76a91c0a20d63330a9a0948b58d543ed8062e4b}
+    evidence:
+      - {kind: code, url: "https://github.com/psiberx/cp2077-equipment-ex/blob/c5b124fa25fa3b6d3fa7270b9bb02cf9ed18d4e3/scripts/CompatibilityManager.reds#L4", observed: 2026-10-30}
+      - {kind: code, url: "https://github.com/psiberx/cp2077-equipment-ex/blob/c5b124fa25fa3b6d3fa7270b9bb02cf9ed18d4e3/scripts/CompatibilityManager.reds#L5", observed: 2026-10-30}
+      - {kind: code, url: "https://github.com/psiberx/cp2077-equipment-ex/blob/c5b124fa25fa3b6d3fa7270b9bb02cf9ed18d4e3/scripts/CompatibilityManager.reds#L6", observed: 2026-10-30}

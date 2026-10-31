@@ -1,0 +1,15 @@
+name: rules
+on: [push, pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: rkrafted/preflight
+          path: preflight-src
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo build --release --manifest-path preflight-src/Cargo.toml
+      - run: preflight-src/target/release/preflight rules check .
+      # Signing happens only on the release workflow, with the key held as a repository secret.

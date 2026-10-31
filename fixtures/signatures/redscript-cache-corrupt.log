@@ -1,0 +1,3 @@
+# synthetic: replace from rig
+# source: https://github.com/jac3km4/redscript/blob/b38ae1cb566a307fb36f801585117f8acdd4669c/crates/scc/core/src/lib.rs#L229
+a compilation timestamp was found, but backup files are missing, your installation might be corrupted, you should remove the contents of 'r6/cache/' directory and verify game files with Steam/GOG

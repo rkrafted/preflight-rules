@@ -1,0 +1,157 @@
+- id: S-redscript-compilation-failed
+  log: redscript
+  match: 'Compilation failed: (.+)'
+  cause: script_compile_failed
+  implicates: [redscript]
+  fix: {action: advise}
+  message: "redscript could not compile the installed scripts, so every script mod is disabled. The compiler reported: {1}. Fix or remove the mod named in the error lines around this one."
+  evidence:
+    - {kind: issue, url: "https://github.com/jac3km4/redscript/issues/138", observed: 2026-10-30}
+  fixture: redscript-compilation-failed.log
+
+- id: S-redscript-error-at-file
+  log: redscript
+  match: '\] At (.+\.reds):(\d+):(\d+):$'
+  cause: script_compile_failed
+  rank: 200   # a location line, not a cause: report the error line above it first
+  fix: {action: advise}
+  message: "A script failed to compile at {1}:{2}:{3}. One failing script disables all script mods; the file path names the mod to update or remove."
+  evidence:
+    - {kind: issue, url: "https://github.com/WopsS/RED4ext/issues/108", observed: 2026-10-30}
+  fixture: redscript-error-at-file.log
+
+- id: S-redscript-annotation-syntax
+  log: redscript
+  match: 'syntax error, expected valid annotation'
+  cause: script_annotation_mismatch
+  implicates: [redscript]
+  fix: {action: update, target: redscript}
+  message: "A script uses an annotation this redscript version does not understand, which happens when a framework is newer than redscript. Update redscript; if it still fails, remove the mod that needs the newer annotation."
+  evidence:
+    - {kind: issue, url: "https://github.com/WopsS/RED4ext/issues/108", observed: 2026-10-30}
+  fixture: redscript-annotation-syntax.log
+
+- id: S-redscript-unresolved-ref
+  log: redscript
+  match: '`[^`]+` could not be found'
+  cause: missing_dependency
+  fix: {action: advise}
+  message: "A script refers to a name that is not installed, so compilation stops and every script mod is disabled. A framework is missing or too old; install or update the mod that provides the name."
+  evidence:
+    - {kind: code, url: "https://github.com/jac3km4/redscript/blob/b38ae1cb566a307fb36f801585117f8acdd4669c/crates/compiler/frontend/src/diagnostic.rs#L45", observed: 2026-10-30}
+  fixture: redscript-unresolved-ref.log
+
+- id: S-redscript-annotation-target-missing
+  log: redscript
+  match: 'could not find a method with a matching signature for the `[^`]+` annotation'
+  cause: script_api_drift
+  fix: {action: advise}
+  message: "A mod tries to patch a method this game build does not have, so nothing compiles. The mod was built for a different patch; update it or remove it."
+  evidence:
+    - {kind: code, url: "https://github.com/jac3km4/redscript/blob/b38ae1cb566a307fb36f801585117f8acdd4669c/crates/compiler/frontend/src/diagnostic.rs#L53", observed: 2026-10-30}
+  fixture: redscript-annotation-target-missing.log
+
+- id: S-redscript-duplicate-annotation
+  log: redscript
+  match: 'this annotation duplicates an existing method with the same signature'
+  cause: duplicate_annotation
+  fix: {action: disable}
+  message: "Two mods patch the same method with the same signature, and redscript refuses to compile any scripts until one is removed. Disable one of the mods that patches this method and relaunch."
+  evidence:
+    - {kind: code, url: "https://github.com/jac3km4/redscript/blob/b38ae1cb566a307fb36f801585117f8acdd4669c/crates/compiler/frontend/src/diagnostic.rs#L75", observed: 2026-10-30}
+  fixture: redscript-duplicate-annotation.log
+
+- id: S-redscript-final-method-override
+  log: redscript
+  match: 'this method overrides the final method `[^`]+`'
+  cause: script_api_drift
+  fix: {action: advise}
+  message: "A mod overrides a method the game marks as final in this build, so compilation fails. The mod targets another patch; update it or remove it."
+  evidence:
+    - {kind: code, url: "https://github.com/jac3km4/redscript/blob/b38ae1cb566a307fb36f801585117f8acdd4669c/crates/compiler/frontend/src/diagnostic.rs#L61", observed: 2026-10-30}
+  fixture: redscript-final-method-override.log
+
+- id: S-redscript-name-undefined
+  log: redscript
+  match: '`[^`]+` is not defined'
+  cause: script_api_drift
+  fix: {action: advise}
+  message: "A script uses a name this game build does not define, so compilation stops and all script mods go off. A dependency is missing or the mod is for another patch; update the mod."
+  evidence:
+    - {kind: code, url: "https://github.com/jac3km4/redscript/blob/b38ae1cb566a307fb36f801585117f8acdd4669c/crates/compiler/frontend/src/lower/error.rs#L22", observed: 2026-10-30}
+  fixture: redscript-name-undefined.log
+
+- id: S-redscript-unknown-member
+  log: redscript
+  match: '`[^`]+` has no member named `[^`]+`'
+  cause: script_api_drift
+  fix: {action: advise}
+  message: "A mod reads a field or method this game build no longer has, so nothing compiles. The mod needs an update for this patch; until then it must be removed."
+  evidence:
+    - {kind: code, url: "https://github.com/jac3km4/redscript/blob/b38ae1cb566a307fb36f801585117f8acdd4669c/crates/compiler/frontend/src/lower/error.rs#L26", observed: 2026-10-30}
+  fixture: redscript-unknown-member.log
+
+- id: S-redscript-type-mismatch
+  log: redscript
+  match: 'type mismatch: found `[^`]+` when expected `[^`]+`'
+  cause: script_api_drift
+  fix: {action: advise}
+  message: "A mod passes the wrong type to a game function, which is a common sign that the mod and the game (or a framework) are from different patches. Update the mod and the framework it uses."
+  evidence:
+    - {kind: code, url: "https://github.com/jac3km4/redscript/blob/b38ae1cb566a307fb36f801585117f8acdd4669c/crates/compiler/frontend/src/lower/error.rs#L304", observed: 2026-10-30}
+  fixture: redscript-type-mismatch.log
+
+- id: S-redscript-module-exists
+  log: redscript
+  match: 'unknown compile-time function[^;]*; only `ModuleExists` is supported'
+  cause: script_api_drift
+  implicates: [redscript]
+  fix: {action: advise}
+  message: "A script uses a compile-time function this redscript does not support; only ModuleExists is allowed. Update redscript, or remove the mod that uses the newer function."
+  evidence:
+    - {kind: code, url: "https://github.com/jac3km4/redscript/blob/b38ae1cb566a307fb36f801585117f8acdd4669c/crates/compiler/frontend/src/cte.rs#L92", observed: 2026-10-30}
+  fixture: redscript-module-exists.log
+
+- id: S-redscript-cache-corrupt
+  log: redscript
+  match: "remove the contents of 'r6/cache/'"
+  cause: corrupt_script_cache
+  implicates: [redscript]
+  fix: {action: clear_cache}
+  message: "redscript found a compile timestamp without its backup files, so r6/cache is inconsistent and no scripts compile. Delete the contents of r6/cache, verify the game files, then launch once."
+  evidence:
+    - {kind: code, url: "https://github.com/jac3km4/redscript/blob/b38ae1cb566a307fb36f801585117f8acdd4669c/crates/scc/core/src/lib.rs#L229", observed: 2026-10-30}
+  fixture: redscript-cache-corrupt.log
+
+- id: S-redscript-readonly-final
+  log: redscript
+  match: "could not write to '[^']+', make sure the file is not read-only"
+  cause: read_only_cache
+  implicates: [redscript]
+  fix: {action: advise}
+  message: "redscript cannot write its compiled script cache because the file is read-only, so script mods do not load. Clear the read-only flag on r6/cache/final.redscripts (and its folder), then relaunch."
+  evidence:
+    - {kind: code, url: "https://github.com/jac3km4/redscript/blob/b38ae1cb566a307fb36f801585117f8acdd4669c/crates/scc/core/src/lib.rs#L136", observed: 2026-10-30}
+  fixture: redscript-readonly-final.log
+
+- id: S-redscript-final-not-ours
+  log: redscript
+  match: 'The final.redscripts file is not ours, copying it to'
+  cause: stale_script_cache
+  implicates: [redscript]
+  fix: {action: advise}
+  message: "The compiled script cache belongs to another game build, so redscript backs it up and recompiles from scratch. This is normal after a game update; if the game then fails to start, clear r6/cache and verify the game files."
+  evidence:
+    - {kind: code, url: "https://github.com/jac3km4/redscript/blob/b38ae1cb566a307fb36f801585117f8acdd4669c/crates/scc/core/src/lib.rs#L220", observed: 2026-10-30}
+  fixture: redscript-final-not-ours.log
+
+- id: S-redscript-user-hints-bad
+  log: redscript
+  match: 'Failed to parse one of the user hints TOML files'
+  cause: bad_config
+  implicates: [redscript]
+  fix: {action: advise}
+  message: "A user-hints TOML file in r6/config/redsUserHints is malformed, so redscript ignores its hints and may attribute errors to the wrong mod. Fix or delete that file."
+  evidence:
+    - {kind: code, url: "https://github.com/jac3km4/redscript/blob/b38ae1cb566a307fb36f801585117f8acdd4669c/crates/scc/core/src/report.rs#L92", observed: 2026-10-30}
+  fixture: redscript-user-hints-bad.log

@@ -1,0 +1,104 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GameFile",
+  "description": "`game.yaml`: every known game build, ordered oldest to newest. Patch comparisons in rules use this order.",
+  "type": "object",
+  "required": [
+    "builds",
+    "game",
+    "schema"
+  ],
+  "properties": {
+    "builds": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/GameBuild"
+      }
+    },
+    "game": {
+      "type": "string"
+    },
+    "schema": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0.0
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "Evidence": {
+      "type": "object",
+      "required": [
+        "kind",
+        "url"
+      ],
+      "properties": {
+        "kind": {
+          "$ref": "#/definitions/EvidenceKind"
+        },
+        "observed": {
+          "description": "Date the evidence was checked, YYYY-MM-DD.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EvidenceKind": {
+      "type": "string",
+      "enum": [
+        "code",
+        "readme",
+        "release_note",
+        "wiki",
+        "issue",
+        "thread",
+        "crash_log"
+      ]
+    },
+    "GameBuild": {
+      "type": "object",
+      "required": [
+        "date",
+        "patch"
+      ],
+      "properties": {
+        "date": {
+          "description": "Release date, YYYY-MM-DD.",
+          "type": "string"
+        },
+        "evidence": {
+          "default": [],
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Evidence"
+          }
+        },
+        "exe": {
+          "description": "File version of Cyberpunk2077.exe, e.g. \"3.0.88.46235\". Several exes may map to one patch.",
+          "default": [],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "patch": {
+          "description": "Patch label as players know it, e.g. \"2.31\", \"2.5\", \"2.12a\".",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

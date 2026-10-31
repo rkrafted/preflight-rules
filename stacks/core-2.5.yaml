@@ -1,0 +1,13 @@
+# The core frameworks for patch 2.5. Every member comes from GitHub, so this stack costs 0 Nexus clicks.
+id: core-2.5
+name: "Core frameworks (patch 2.5)"
+game: "2.5"
+members:
+  - {mod: red4ext}
+  - {mod: redscript}
+  - {mod: cet}
+  - {mod: archivexl}
+  - {mod: tweakxl}
+  - {mod: codeware}
+  - {mod: input_loader}
+  - {mod: mod_settings}

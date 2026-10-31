@@ -1,0 +1,259 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Array_of_Rule",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/Rule"
+  },
+  "definitions": {
+    "Confidence": {
+      "type": "string",
+      "enum": [
+        "established",
+        "likely",
+        "reported"
+      ]
+    },
+    "Effect": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "warn",
+            "info"
+          ]
+        },
+        {
+          "description": "Deploy/launch gate.",
+          "type": "string",
+          "enum": [
+            "block"
+          ]
+        }
+      ]
+    },
+    "Evidence": {
+      "type": "object",
+      "required": [
+        "kind",
+        "url"
+      ],
+      "properties": {
+        "kind": {
+          "$ref": "#/definitions/EvidenceKind"
+        },
+        "observed": {
+          "description": "Date the evidence was checked, YYYY-MM-DD.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EvidenceKind": {
+      "type": "string",
+      "enum": [
+        "code",
+        "readme",
+        "release_note",
+        "wiki",
+        "issue",
+        "thread",
+        "crash_log"
+      ]
+    },
+    "Fix": {
+      "type": "object",
+      "required": [
+        "action"
+      ],
+      "properties": {
+        "action": {
+          "$ref": "#/definitions/FixAction"
+        },
+        "target": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "FixAction": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "install",
+            "update",
+            "disable",
+            "reorder",
+            "quarantine",
+            "clear_cache",
+            "advise"
+          ]
+        },
+        {
+          "description": "Run a Preflight catalogue fix (the finding names it in `fix_id`).",
+          "type": "string",
+          "enum": [
+            "repair"
+          ]
+        }
+      ]
+    },
+    "ModRef": {
+      "type": "object",
+      "required": [
+        "mod"
+      ],
+      "properties": {
+        "mod": {
+          "type": "string"
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "Rule": {
+      "description": "One entry in a `rules/*.yaml` list.",
+      "type": "object",
+      "required": [
+        "confidence",
+        "effect",
+        "evidence",
+        "fixture",
+        "id",
+        "message",
+        "origin",
+        "subject",
+        "type"
+      ],
+      "properties": {
+        "confidence": {
+          "$ref": "#/definitions/Confidence"
+        },
+        "effect": {
+          "$ref": "#/definitions/Effect"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Evidence"
+          }
+        },
+        "fix": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Fix"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fixture": {
+          "description": "Directory (relative to `fixtures/rules/`) holding `fires.json` and `quiet.json`.",
+          "type": "string"
+        },
+        "id": {
+          "description": "`R-` followed by four or more digits.",
+          "type": "string"
+        },
+        "message": {
+          "description": "Plain-language explanation shown to the user.",
+          "type": "string"
+        },
+        "object": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ModRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "origin": {
+          "type": "string"
+        },
+        "requires_flags": {
+          "description": "Layout flags that must all be present in `Facts.flags`; only used by `env` rules.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sources_tos_clean": {
+          "description": "False if any source is Nexus-derived or otherwise not redistributable. Such rules never ship.",
+          "default": true,
+          "type": "boolean"
+        },
+        "subject": {
+          "$ref": "#/definitions/ModRef"
+        },
+        "type": {
+          "$ref": "#/definitions/RuleType"
+        },
+        "when": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/When"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "RuleType": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "requires",
+            "conflicts",
+            "load_after",
+            "needs_patch",
+            "max_game_version",
+            "recommends",
+            "replaces"
+          ]
+        },
+        {
+          "description": "Environment/layout precondition (VC++ runtime, store build, cache state...).",
+          "type": "string",
+          "enum": [
+            "env"
+          ]
+        }
+      ]
+    },
+    "When": {
+      "type": "object",
+      "properties": {
+        "game": {
+          "description": "Patch comparison against `game.yaml` builds, e.g. \">=2.5\", \"==2.31\", \"<2.2\".",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

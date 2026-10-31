@@ -1,0 +1,39 @@
+id: redscript
+names: ["redscript"]
+ids: {github: jac3km4/redscript}
+kind: framework
+gate: runtime_independent
+detect:
+  paths: ["engine/tools/scc_lib.dll"]   # provisional: confirm on the Windows rig (T4)
+sources:
+  - {kind: github_release, url: "https://github.com/jac3km4/redscript/releases"}
+releases:
+  - version: "0.5.32"
+    date: 2026-10-22
+    game: {min: "2.5"}
+    sha256:
+      engine/tools/scc_lib.dll: 114851d192ec815119bbfa2272da572bf026fea8e5c0a910a4c8ad84b877dc09
+      engine/tools/scc.exe: f7bf0a5a0986aec61d360ae79a3e957b8e21c0781309193a2a056c7bde0e90bc
+    asset: {url: "https://github.com/jac3km4/redscript/releases/download/v0.5.32/redscript-v0.5.32-windows.zip", sha256: 882c57a80b07e453bc8a34cd8430f460aceed789581de8743638e19dcfb7936f}
+    evidence:
+      - {kind: code, url: "https://github.com/wopss/RED4ext/blob/9f135ac339b00c55a68d06ce7106e960dd82962a/src/dll/Hooks/ExecuteProcess.cpp#L27", observed: 2026-10-30}
+      - {kind: readme, url: "https://github.com/psiberx/cp2077-archive-xl/blob/a6908c8ce1d31c9196097cd0f10fa745db30cff0/README.md#L20", observed: 2026-10-30}
+  - version: "1.0.0-preview.22"
+    date: 2025-09-07
+    channel: preview
+    game: {min: "2.3", max: "2.31"}
+    sha256:
+      engine/tools/scc_lib.dll: 5eb2a39638e81502617250a1c64f44ff052e7833a86b303edfd369b6665557e8
+      engine/tools/scc.exe: 3927529963fbcedc649d85372eff12f6b780e9e3dd476e5b6b3b5656b704ac5b
+    evidence:
+      - {kind: readme, url: "https://github.com/jac3km4/redscript/blob/6b76cda1ac6226b3b53f58da580ca2904a98368b/README.md#L13", observed: 2026-10-30}
+  - version: "0.5.31"
+    date: 2025-08-28
+    game: {min: "2.3", max: "2.31"}
+    sha256:
+      engine/tools/scc_lib.dll: 49eb60a3613c990cd13b6136e827a74f9f64ad68e2f911d8c93e4e3d3f53c100
+      engine/tools/scc.exe: da2c0de580173010c907a05fdd2f3cd2430d6e62bf748339d65060118ae32edd
+    asset: {url: "https://github.com/jac3km4/redscript/releases/download/v0.5.31/redscript-v0.5.31-windows.zip", sha256: 799bbd88863f6728616f8d723c941ea15dff71ed5bbfd50c525f0d39ea0bf46b}
+    evidence:
+      - {kind: readme, url: "https://github.com/psiberx/cp2077-archive-xl/blob/48cb8ddb8cd27aa3adac4598578d95a994d1ec44/README.md#L20", observed: 2026-10-30}
+      - {kind: readme, url: "https://github.com/jac3km4/redscript/blob/e41938253f21a6221883532edff387a2baa26dd8/README.md#L6", observed: 2026-10-30}

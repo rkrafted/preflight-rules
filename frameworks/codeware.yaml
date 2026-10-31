@@ -1,0 +1,58 @@
+id: codeware
+names: ["Codeware"]
+ids: {github: psiberx/cp2077-codeware}
+kind: framework
+gate: runtime_independent
+detect:
+  paths: ["red4ext/plugins/Codeware/Codeware.dll"]   # provisional: confirm on the Windows rig (T4)
+sources:
+  - {kind: github_release, url: "https://github.com/psiberx/cp2077-codeware/releases"}
+releases:
+  - version: "1.21.2"
+    date: 2026-10-28
+    game: {min: "2.5"}
+    requires:
+      - {mod: red4ext, version: ">=1.31.0"}
+      - {mod: redscript, version: ">=0.5.32"}
+      - {mod: cet, version: ">=1.38.0"}
+    sha256:
+      red4ext/plugins/Codeware/Codeware.dll: f03bb6664b04912dd00145309071631125f50bd32e36ea31a29133730252bfe8
+      red4ext/plugins/Codeware/Scripts/Codeware.Global.reds: 0dc8604a5503062bfae5fcf724cbfba87752ace42ab55b32f5387808e7ada6be
+    asset: {url: "https://github.com/psiberx/cp2077-codeware/releases/download/v1.21.2/Codeware-1.21.2.zip", sha256: 269b65b8b97d26ea85d4516f5eb34c01a19dc85e299be57fb4f764e16c164dd2}
+    evidence:
+      - {kind: readme, url: "https://github.com/psiberx/cp2077-codeware/blob/8224c84e82e1f4c009f07f1467aaef54db82c072/README.md#L9", observed: 2026-10-30}
+      - {kind: readme, url: "https://github.com/psiberx/cp2077-codeware/blob/8224c84e82e1f4c009f07f1467aaef54db82c072/README.md#L10", observed: 2026-10-30}
+      - {kind: readme, url: "https://github.com/psiberx/cp2077-codeware/blob/8224c84e82e1f4c009f07f1467aaef54db82c072/README.md#L11", observed: 2026-10-30}
+      - {kind: readme, url: "https://github.com/psiberx/cp2077-codeware/blob/8224c84e82e1f4c009f07f1467aaef54db82c072/README.md#L16", observed: 2026-10-30}
+  - version: "1.21.0"
+    date: 2026-10-25
+    game: {min: "2.5"}
+    requires:
+      - {mod: red4ext, version: ">=1.31.0"}
+      - {mod: redscript, version: ">=0.5.32"}
+      - {mod: cet, version: ">=1.38.0"}
+    sha256:
+      red4ext/plugins/Codeware/Codeware.dll: 821ad22f744aafbe764611259ffbe8d379a343a9bead725c69a0a12098d549ef
+      red4ext/plugins/Codeware/Scripts/Codeware.Global.reds: 9b840256ad7dcd5db9fc3d70daf4e77aa1198f9f16a28210de9d3f2b2cfde05c
+    asset: {url: "https://github.com/psiberx/cp2077-codeware/releases/download/v1.21.0/Codeware-1.21.0.zip", sha256: a907110a0c6ac32f095f5178660b56799527cef710f7a88ae6c846e5f00bc8a8}
+    evidence:
+      - {kind: readme, url: "https://github.com/psiberx/cp2077-codeware/blob/decce71323d6f6183cf78143882032a3c70aac9e/README.md#L9", observed: 2026-10-30}
+      - {kind: readme, url: "https://github.com/psiberx/cp2077-codeware/blob/decce71323d6f6183cf78143882032a3c70aac9e/README.md#L16", observed: 2026-10-30}
+      - {kind: readme, url: "https://github.com/psiberx/cp2077-codeware/blob/decce71323d6f6183cf78143882032a3c70aac9e/README.md#L10", observed: 2026-10-30}
+      - {kind: readme, url: "https://github.com/psiberx/cp2077-codeware/blob/decce71323d6f6183cf78143882032a3c70aac9e/README.md#L11", observed: 2026-10-30}
+  - version: "1.20.6"
+    date: 2026-10-19
+    game: {min: "2.31", max: "2.31"}
+    requires:
+      - {mod: red4ext, version: ">=1.29.0"}
+      - {mod: redscript, version: ">=0.5.31"}
+      - {mod: cet, version: ">=1.37.0"}
+    sha256:
+      red4ext/plugins/Codeware/Codeware.dll: 885d85df608b2aed301b3e8aae18760086c8ad37942e93e906aa7c35713ebfe9
+      red4ext/plugins/Codeware/Scripts/Codeware.Global.reds: 2131891d9f581a2bbe9059fa51c1d31fb87d038301c9a3f26935ffc7ce2903fd
+    asset: {url: "https://github.com/psiberx/cp2077-codeware/releases/download/v1.20.6/Codeware-1.20.6.zip", sha256: 7b55dcc0b569a652134aac493114c7e7e4bf1d6bd96b28fce0a62b60613ccff2}
+    evidence:
+      - {kind: readme, url: "https://github.com/psiberx/cp2077-codeware/blob/a652bbbcf6feb65988c67f15f428e9398a3d827c/README.md#L9", observed: 2026-10-30}
+      - {kind: readme, url: "https://github.com/psiberx/cp2077-codeware/blob/a652bbbcf6feb65988c67f15f428e9398a3d827c/README.md#L10", observed: 2026-10-30}
+      - {kind: readme, url: "https://github.com/psiberx/cp2077-codeware/blob/a652bbbcf6feb65988c67f15f428e9398a3d827c/README.md#L11", observed: 2026-10-30}
+      - {kind: readme, url: "https://github.com/psiberx/cp2077-codeware/blob/a652bbbcf6feb65988c67f15f428e9398a3d827c/README.md#L16", observed: 2026-10-30}

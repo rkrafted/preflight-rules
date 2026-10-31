@@ -1,0 +1,251 @@
+- id: R-0001
+  type: requires
+  subject: {mod: codeware, version: ">=1.21.0"}
+  object: {mod: cet, version: ">=1.38.0"}
+  when: {game: ">=2.5"}
+  effect: block
+  fix: {action: update, target: cet}
+  message: "Codeware 1.21 needs Cyber Engine Tweaks 1.38 or newer on patch 2.5."
+  evidence:
+    - {kind: readme, url: "https://github.com/psiberx/cp2077-codeware/blob/decce71323d6f6183cf78143882032a3c70aac9e/README.md#L11", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0001
+
+- id: R-0100
+  type: needs_patch
+  subject: {mod: red4ext, version: "<1.31.0"}
+  when: {game: ">=2.5"}
+  effect: block
+  fix: {action: update, target: red4ext}
+  message: "RED4ext 1.30 and older were built for patch 2.31 and cannot load on 2.5, so every RED4ext plugin fails. Install RED4ext 1.31.0 or newer."
+  evidence:
+    - {kind: release_note, url: "https://github.com/wopss/RED4ext/releases/tag/v1.31.0", observed: 2026-10-30}
+    - {kind: code, url: "https://github.com/wopss/RED4ext/blob/9f135ac339b00c55a68d06ce7106e960dd82962a/src/dll/App.cpp#L96", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0100
+
+- id: R-0101
+  type: needs_patch
+  subject: {mod: cet, version: "<1.38.0"}
+  when: {game: ">=2.5"}
+  effect: block
+  fix: {action: update, target: cet}
+  message: "CET 1.37 and older only support patch 2.31; on 2.5 they log \"Unsupported game version\" and stay off, so the overlay and all Lua mods are unavailable. Install CET 1.38.0 or newer."
+  evidence:
+    - {kind: release_note, url: "https://github.com/maximegmd/CyberEngineTweaks/releases/tag/v1.38.0", observed: 2026-10-30}
+    - {kind: code, url: "https://github.com/maximegmd/CyberEngineTweaks/blob/ed706fb8518712ffedf6b566e52873b257bc49fb/src/Options.cpp#L190", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0101
+
+- id: R-0102
+  type: needs_patch
+  subject: {mod: archivexl, version: "<1.28.0"}
+  when: {game: ">=2.5"}
+  effect: block
+  fix: {action: update, target: archivexl}
+  message: "ArchiveXL 1.27 and older do not know patch 2.5 and fail to apply its archive patches, so modded appearances and items go missing. Install ArchiveXL 1.28.0 or newer."
+  evidence:
+    - {kind: release_note, url: "https://github.com/psiberx/cp2077-archive-xl/releases/tag/v1.28.0", observed: 2026-10-30}
+    - {kind: readme, url: "https://github.com/psiberx/cp2077-archive-xl/blob/a6908c8ce1d31c9196097cd0f10fa745db30cff0/README.md#L19", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0102
+
+- id: R-0103
+  type: needs_patch
+  subject: {mod: tweakxl, version: "<1.12.0"}
+  when: {game: ">=2.5"}
+  effect: block
+  fix: {action: update, target: tweakxl}
+  message: "TweakXL 1.11 and older cannot apply tweaks to patch 2.5's TweakDB, so tweak mods silently do nothing. Install TweakXL 1.12.0 or newer."
+  evidence:
+    - {kind: release_note, url: "https://github.com/psiberx/cp2077-tweak-xl/releases/tag/v1.12.0", observed: 2026-10-30}
+    - {kind: readme, url: "https://github.com/psiberx/cp2077-tweak-xl/blob/0d13bb9057a0c70b35292c0d8a3c2076e2b6827a/README.md#L16", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0103
+
+- id: R-0104
+  type: needs_patch
+  subject: {mod: codeware, version: "<1.21.0"}
+  when: {game: ">=2.5"}
+  effect: block
+  fix: {action: update, target: codeware}
+  message: "Codeware 1.20 and older cannot initialise on patch 2.5, so every mod that uses Codeware's script API stops working. Install Codeware 1.21.0 or newer."
+  evidence:
+    - {kind: release_note, url: "https://github.com/psiberx/cp2077-codeware/releases/tag/v1.21.0", observed: 2026-10-30}
+    - {kind: readme, url: "https://github.com/psiberx/cp2077-codeware/blob/decce71323d6f6183cf78143882032a3c70aac9e/README.md#L9", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0104
+
+- id: R-0105
+  type: needs_patch
+  subject: {mod: redscript, version: "<0.5.32"}
+  when: {game: ">=2.5"}
+  effect: block
+  fix: {action: update, target: redscript}
+  message: "Redscript 0.5.31 and older cannot compile the script bundles that patch 2.5 ships, so the game drops every redscript mod. Install redscript 0.5.32 or newer."
+  evidence:
+    - {kind: release_note, url: "https://github.com/jac3km4/redscript/releases/tag/v0.5.32", observed: 2026-10-30}
+    - {kind: code, url: "https://github.com/wopss/RED4ext/blob/9f135ac339b00c55a68d06ce7106e960dd82962a/src/dll/Hooks/ExecuteProcess.cpp#L27", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0105
+
+# Remove or version-scope this rule once EquipmentEx ships a 2.5-compatible release.
+- id: R-0106
+  type: max_game_version
+  subject: {mod: equipmentex}
+  when: {game: ">=2.5"}
+  effect: block
+  fix: {action: disable, target: equipmentex}
+  message: "There is no EquipmentEx build for patch 2.5: the newest release, 1.2.9-rc.1 (March 2026), stops at patch 2.31. Remove EquipmentEx until its author releases a 2.5 build."
+  evidence:
+    - {kind: release_note, url: "https://github.com/psiberx/cp2077-equipment-ex/releases", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0106
+
+- id: R-0107
+  type: requires
+  subject: {mod: archivexl, version: ">=1.28.0"}
+  object: {mod: red4ext, version: ">=1.31.0"}
+  when: {game: ">=2.5"}
+  effect: block
+  fix: {action: update, target: red4ext}
+  message: "ArchiveXL needs RED4ext 1.31.0 or newer; without it the plugin cannot load and .xl archive extensions are ignored. Update RED4ext."
+  evidence:
+    - {kind: readme, url: "https://github.com/psiberx/cp2077-archive-xl/blob/a6908c8ce1d31c9196097cd0f10fa745db30cff0/README.md#L25", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0107
+
+- id: R-0108
+  type: requires
+  subject: {mod: archivexl, version: ">=1.28.0"}
+  object: {mod: redscript, version: ">=0.5.32"}
+  when: {game: ">=2.5"}
+  effect: block
+  fix: {action: update, target: redscript}
+  message: "ArchiveXL needs redscript 0.5.32 or newer; with an older redscript its scripts do not compile and the game drops every redscript mod. Update redscript."
+  evidence:
+    - {kind: readme, url: "https://github.com/psiberx/cp2077-archive-xl/blob/a6908c8ce1d31c9196097cd0f10fa745db30cff0/README.md#L20", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0108
+
+- id: R-0109
+  type: requires
+  subject: {mod: tweakxl, version: ">=1.12.0"}
+  object: {mod: red4ext, version: ">=1.31.0"}
+  when: {game: ">=2.5"}
+  effect: block
+  fix: {action: update, target: red4ext}
+  message: "TweakXL needs RED4ext 1.31.0 or newer; without it the plugin cannot load and no tweak file is applied. Update RED4ext."
+  evidence:
+    - {kind: readme, url: "https://github.com/psiberx/cp2077-tweak-xl/blob/0d13bb9057a0c70b35292c0d8a3c2076e2b6827a/README.md#L22", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0109
+
+- id: R-0110
+  type: requires
+  subject: {mod: tweakxl, version: ">=1.12.0"}
+  object: {mod: redscript, version: ">=0.5.32"}
+  when: {game: ">=2.5"}
+  effect: block
+  fix: {action: update, target: redscript}
+  message: "TweakXL needs redscript 0.5.32 or newer; with an older redscript its scripts do not compile and the game drops every redscript mod. Update redscript."
+  evidence:
+    - {kind: readme, url: "https://github.com/psiberx/cp2077-tweak-xl/blob/0d13bb9057a0c70b35292c0d8a3c2076e2b6827a/README.md#L17", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0110
+
+- id: R-0111
+  type: requires
+  subject: {mod: codeware, version: ">=1.21.0"}
+  object: {mod: red4ext, version: ">=1.31.0"}
+  when: {game: ">=2.5"}
+  effect: block
+  fix: {action: update, target: red4ext}
+  message: "Codeware 1.21 needs RED4ext 1.31.0 or newer; without it Codeware cannot load and every mod using its API fails. Update RED4ext."
+  evidence:
+    - {kind: readme, url: "https://github.com/psiberx/cp2077-codeware/blob/decce71323d6f6183cf78143882032a3c70aac9e/README.md#L16", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0111
+
+- id: R-0112
+  type: requires
+  subject: {mod: codeware, version: ">=1.21.0"}
+  object: {mod: redscript, version: ">=0.5.32"}
+  when: {game: ">=2.5"}
+  effect: block
+  fix: {action: update, target: redscript}
+  message: "Codeware 1.21 needs redscript 0.5.32 or newer; with an older redscript its scripts do not compile and the game drops every redscript mod. Update redscript."
+  evidence:
+    - {kind: readme, url: "https://github.com/psiberx/cp2077-codeware/blob/decce71323d6f6183cf78143882032a3c70aac9e/README.md#L10", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0112
+
+- id: R-0113
+  type: requires
+  subject: {mod: mod_settings, version: ">=0.2.28"}
+  object: {mod: red4ext, version: ">=1.31.0"}
+  when: {game: ">=2.5"}
+  effect: block
+  fix: {action: update, target: red4ext}
+  message: "Mod Settings needs RED4ext 1.31.0 or newer; without it the plugin cannot load and mod option menus disappear. Update RED4ext."
+  evidence:
+    - {kind: readme, url: "https://github.com/jackhumbert/mod_settings/blob/26d6715f497a5d5af37171dd6d77e695cf5f6a21/requirements.md#L2", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0113
+
+- id: R-0114
+  type: requires
+  subject: {mod: mod_settings, version: ">=0.2.28"}
+  object: {mod: archivexl, version: ">=1.28.0"}
+  when: {game: ">=2.5"}
+  effect: block
+  fix: {action: update, target: archivexl}
+  message: "Mod Settings needs ArchiveXL 1.28.0 or newer because its menu is itself an archive; without it the settings menu stays empty. Update ArchiveXL."
+  evidence:
+    - {kind: readme, url: "https://github.com/jackhumbert/mod_settings/blob/26d6715f497a5d5af37171dd6d77e695cf5f6a21/requirements.md#L3", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0114
+
+- id: R-0115
+  type: requires
+  subject: {mod: mod_settings, version: ">=0.2.28"}
+  object: {mod: redscript, version: ">=0.5.32"}
+  when: {game: ">=2.5"}
+  effect: block
+  fix: {action: update, target: redscript}
+  message: "Mod Settings needs redscript 0.5.32 or newer; with an older redscript its scripts do not compile and the game drops every redscript mod. Update redscript."
+  evidence:
+    - {kind: readme, url: "https://github.com/jackhumbert/mod_settings/blob/26d6715f497a5d5af37171dd6d77e695cf5f6a21/requirements.md#L4", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0115
+
+- id: R-0116
+  type: requires
+  subject: {mod: input_loader, version: ">=0.2.6"}
+  object: {mod: red4ext, version: ">=1.31.0"}
+  when: {game: ">=2.5"}
+  effect: block
+  fix: {action: update, target: red4ext}
+  message: "Input Loader needs RED4ext 1.31.0 or newer; without it custom keybinds are not loaded. Update RED4ext."
+  evidence:
+    - {kind: readme, url: "https://github.com/jackhumbert/cyberpunk2077-input-loader/blob/2758cd8ab54e340f4531a1e0adb13d8b0231d998/requirements.md#L2", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0116

@@ -1,0 +1,138 @@
+- id: S-red4ext-game-too-old
+  log: red4ext
+  match: 'To use this version of RED4ext, ensure your game is updated to patch (\S+) or newer'
+  cause: game_older_than_framework
+  implicates: [red4ext]
+  fix: {action: advise}
+  message: "This RED4ext build needs game patch {1} or newer, and the installed game is older. RED4ext does not start, so every mod that needs it is off; update the game, or install the RED4ext release made for your patch."
+  evidence:
+    - {kind: code, url: "https://github.com/wopss/RED4ext/blob/9f135ac339b00c55a68d06ce7106e960dd82962a/src/dll/App.cpp#L96", observed: 2026-10-30}
+  fixture: red4ext-game-too-old.log
+
+- id: S-red4ext-hook-attach-failed
+  log: red4ext
+  match: 'Could not attach the hook for (?:the main function|collect saveable systems)\. Detour error code: (\d+)'
+  cause: framework_outdated_for_game
+  implicates: [red4ext]
+  fix: {action: update, target: red4ext}
+  message: "RED4ext could not hook a game function (Detour error code {1}), so it never starts and no RED4ext mods load. This means RED4ext does not match the game executable; install the RED4ext release for this game patch."
+  evidence:
+    - {kind: issue, url: "https://github.com/WopsS/RED4ext/issues/58", observed: 2026-10-30}
+    - {kind: issue, url: "https://github.com/WopsS/RED4ext/issues/113", observed: 2026-10-30}
+  fixture: red4ext-hook-attach-failed.log
+
+- id: S-red4ext-unsupported-patch
+  log: red4ext
+  match: 'This game patch \(.+\) is not supported|The current version of RED4ext supports only the following patch\(es\)'
+  cause: game_version_unsupported
+  implicates: [red4ext]
+  fix: {action: update, target: red4ext}
+  message: "RED4ext does not recognise this game build, so it shuts down before loading any plugin. The log lists the patches your RED4ext supports; update RED4ext to a release that covers this patch."
+  evidence:
+    - {kind: issue, url: "https://github.com/WopsS/RED4ext/issues/106", observed: 2026-10-30}
+  fixture: red4ext-unsupported-patch.log
+
+- id: S-red4ext-plugin-runtime-mismatch
+  log: red4ext
+  match: '([A-Za-z0-9_.-][A-Za-z0-9_ .-]*?) \(version: [^)]+\) is incompatible with the current patch\. The requested runtime of the plugin is (\S+)'
+  cause: plugin_wrong_game_version
+  fix: {action: advise}
+  message: "{1} was built for game runtime {2}, not for the installed game build, so RED4ext skipped it and its features are missing. Update {1} to a version built for this patch."
+  evidence:
+    - {kind: issue, url: "https://github.com/WopsS/RED4ext/issues/76", observed: 2026-10-30}
+  fixture: red4ext-plugin-runtime-mismatch.log
+
+- id: S-red4ext-addresses-json-missing
+  log: red4ext
+  match: 'The addresses JSON does not exists'
+  cause: missing_addresses_file
+  implicates: [red4ext]
+  fix: {action: advise}
+  message: "RED4ext cannot find cyberpunk2077_addresses.json, so it shows an error box and exits without loading mods. This is an incomplete install or a leftover file from another RED4ext version; reinstall RED4ext for this game build."
+  evidence:
+    - {kind: code, url: "https://github.com/wopss/RED4ext/blob/9f135ac339b00c55a68d06ce7106e960dd82962a/src/dll/Addresses.cpp#L52", observed: 2026-10-30}
+  fixture: red4ext-addresses-json-missing.log
+
+- id: S-red4ext-broken-symlink
+  log: red4ext
+  match: 'Symbolic link is broken, it will be skipped'
+  cause: broken_symlink
+  implicates: [red4ext]
+  fix: {action: advise}
+  message: "A deployed plugin is a broken symbolic link, so RED4ext skipped it and that mod silently does not exist in game. Redeploy the mod so real files are in red4ext/plugins, or remove the dead link."
+  evidence:
+    - {kind: code, url: "https://github.com/wopss/RED4ext/blob/9f135ac339b00c55a68d06ce7106e960dd82962a/src/dll/Systems/PluginSystem.cpp#L130", observed: 2026-10-30}
+  fixture: red4ext-broken-symlink.log
+
+- id: S-red4ext-sdk-too-old
+  log: red4ext
+  match: 'uses RED4ext\.SDK v[^ ]+ which is not supported by RED4ext v[^ .]+'
+  cause: plugin_sdk_unsupported
+  fix: {action: advise}
+  message: "A plugin was compiled against an old RED4ext SDK, so RED4ext refused to load it and only its author can fix that. Update the plugin to a build made for current RED4ext."
+  evidence:
+    - {kind: code, url: "https://github.com/wopss/RED4ext/blob/9f135ac339b00c55a68d06ce7106e960dd82962a/src/dll/Systems/PluginSystem.cpp#L300", observed: 2026-10-30}
+  fixture: red4ext-sdk-too-old.log
+
+- id: S-red4ext-api-version
+  log: red4ext
+  match: 'is using an unsupported API version\. API version'
+  cause: plugin_api_unsupported
+  fix: {action: advise}
+  message: "A plugin asks for a RED4ext API version this RED4ext does not provide, so it was not loaded. Update RED4ext and that plugin together."
+  evidence:
+    - {kind: code, url: "https://github.com/wopss/RED4ext/blob/9f135ac339b00c55a68d06ce7106e960dd82962a/src/dll/Systems/PluginSystem.cpp#L378", observed: 2026-10-30}
+  fixture: red4ext-api-version.log
+
+- id: S-red4ext-plugin-init-failed
+  log: red4ext
+  match: 'did not initialize properly, unloading'
+  cause: plugin_init_failed
+  fix: {action: advise}
+  message: "A plugin started but its own setup failed, so RED4ext unloaded it and its features are missing. This usually means a missing dependency or a game pattern it expects changed; update the plugin and the mods it requires."
+  evidence:
+    - {kind: code, url: "https://github.com/wopss/RED4ext/blob/9f135ac339b00c55a68d06ce7106e960dd82962a/src/dll/Systems/PluginSystem.cpp#L313", observed: 2026-10-30}
+  fixture: red4ext-plugin-init-failed.log
+
+- id: S-red4ext-plugin-load-failed
+  log: red4ext
+  match: "Could not load plugin '[^']+'\\. Error code: "
+  cause: plugin_load_failed
+  fix: {action: advise}
+  message: "Windows could not load a plugin DLL, which is usually a missing Visual C++ runtime or a file blocked by the system. Install the Visual C++ 2015-2022 x64 runtime and unblock the DLL, then retry."
+  evidence:
+    - {kind: code, url: "https://github.com/wopss/RED4ext/blob/9f135ac339b00c55a68d06ce7106e960dd82962a/src/dll/Systems/PluginSystem.cpp#L245", observed: 2026-10-30}
+  fixture: red4ext-plugin-load-failed.log
+
+- id: S-red4ext-config-invalid
+  log: red4ext
+  match: "An exception occured while parsing the config file|Config version '[^']+' is not supported"
+  cause: bad_config
+  implicates: [red4ext]
+  fix: {action: advise}
+  message: "red4ext/config.toml cannot be parsed or belongs to another RED4ext version, so RED4ext stops. Delete red4ext/config.toml; RED4ext writes a fresh default on the next start."
+  evidence:
+    - {kind: code, url: "https://github.com/wopss/RED4ext/blob/9f135ac339b00c55a68d06ce7106e960dd82962a/src/dll/Config.cpp#L19", observed: 2026-10-30}
+    - {kind: code, url: "https://github.com/wopss/RED4ext/blob/9f135ac339b00c55a68d06ce7106e960dd82962a/src/dll/Config.cpp#L87", observed: 2026-10-30}
+  fixture: red4ext-config-invalid.log
+
+- id: S-red4ext-scc-failed
+  log: red4ext
+  match: 'scc invocation failed with an error: REDScript compilation has failed'
+  cause: script_compile_failed
+  implicates: [redscript]
+  fix: {action: advise}
+  message: "The redscript compiler failed while RED4ext was running it, so no script mods load. Read r6/logs/redscript_rCURRENT.log to find the file that failed; update or remove that mod."
+  evidence:
+    - {kind: issue, url: "https://github.com/psiberx/cp2077-codeware/issues/34", observed: 2026-10-30}
+  fixture: red4ext-scc-failed.log
+
+- id: S-red4ext-script-validation
+  log: red4ext
+  match: 'Script validation error: Native class '
+  cause: invalid_native_definition
+  fix: {action: clear_cache}
+  message: "A script declares a native class that does not match this game build, and the game refuses to start. This is usually an outdated framework or a stale script cache; update the framework and clear r6/cache, then verify the game files."
+  evidence:
+    - {kind: issue, url: "https://github.com/psiberx/cp2077-codeware/issues/34", observed: 2026-10-30}
+  fixture: red4ext-script-validation.log

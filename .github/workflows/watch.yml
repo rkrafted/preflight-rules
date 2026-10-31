@@ -1,0 +1,41 @@
+name: release-watch
+# Hourly: look for new framework releases and open a PR adding them as unverified (rc).
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: rkrafted/preflight
+          path: preflight-src
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo build --release --locked --manifest-path preflight-src/Cargo.toml
+      - run: preflight-src/target/release/preflight rules watch . --json | tee watch.json
+      - run: preflight-src/target/release/preflight rules check .
+      - name: Open a pull request when something was added
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          rm -rf preflight-src
+          if git diff --quiet -- frameworks; then
+            echo "no new releases"; exit 0
+          fi
+          branch="watch/$(date -u +%Y%m%d%H%M)"
+          git config user.name "preflight-release-watch"
+          git config user.email "preflight-release-watch@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add frameworks
+          git commit -m "Add new framework releases as unverified (rc)"
+          git push origin "$branch"
+          gh pr create --title "New framework releases (unverified)" --label unverified \
+            --body "Added by the release watcher. For each entry: set the game window, verify on the rig, then change channel to stable. $(jq -r '.added[] | "- \(.framework) \(.version)"' watch.json)"

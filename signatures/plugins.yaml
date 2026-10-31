@@ -1,0 +1,186 @@
+- id: S-archivexl-extensions-issues
+  log: archivexl
+  match: 'Archive extensions are loaded with issues\.'
+  cause: archive_extension_invalid
+  implicates: [archivexl]
+  fix: {action: advise}
+  message: "ArchiveXL loaded some .xl files with errors, so part of at least one mod is missing in game. The lines above this one in ArchiveXL.log name the broken file and the reason; update or reinstall the mod that owns it."
+  evidence:
+    - {kind: code, url: "https://github.com/psiberx/cp2077-archive-xl/blob/998f7735593e8d65a2d856369764328777714ccf/src/App/Extensions/ExtensionLoader.cpp#L92", observed: 2026-10-30}
+  fixture: archivexl-extensions-issues.log
+
+- id: S-archivexl-cant-read-extension
+  log: archivexl
+  match: 'Can.t read extension file\.'
+  cause: archive_extension_invalid
+  implicates: [archivexl]
+  fix: {action: advise}
+  message: "ArchiveXL could not read a .xl file, so that mod's archive changes are not applied. The file is missing, locked or not readable; reinstall the mod that owns it."
+  evidence:
+    - {kind: code, url: "https://github.com/psiberx/cp2077-archive-xl/blob/998f7735593e8d65a2d856369764328777714ccf/src/App/Extensions/ExtensionLoader.cpp#L123", observed: 2026-10-30}
+  fixture: archivexl-cant-read-extension.log
+
+- id: S-archivexl-archive-missing
+  log: archivexl
+  match: 'Can.t register archive "[^"]+": path doesn.t exist'
+  cause: missing_archive
+  implicates: [archivexl]
+  fix: {action: advise}
+  message: "ArchiveXL tried to load an archive that is not on disk: a mod file is missing, or a .xl points at the wrong path. Reinstall the mod that owns the archive."
+  evidence:
+    - {kind: code, url: "https://github.com/psiberx/cp2077-archive-xl/blob/998f7735593e8d65a2d856369764328777714ccf/src/App/Archives/ArchiveService.cpp#L133", observed: 2026-10-30}
+  fixture: archivexl-archive-missing.log
+
+- id: S-archivexl-resource-exists
+  log: archivexl
+  match: 'Copy "[^"]+" is an existing resource\.'
+  cause: archive_resource_collision
+  implicates: [archivexl]
+  fix: {action: advise}
+  message: "An ArchiveXL .xl copies a file to a path where another archive already provides one, so the copy is skipped and the mod's version does not appear. Remove the conflicting archive or the .xl copy."
+  evidence:
+    - {kind: code, url: "https://github.com/psiberx/cp2077-archive-xl/blob/998f7735593e8d65a2d856369764328777714ccf/src/App/Extensions/ResourceLink/Extension.cpp#L69", observed: 2026-10-30}
+  fixture: archivexl-resource-exists.log
+
+- id: S-archivexl-link-missing-resource
+  log: archivexl
+  match: 'points to a non-existent resource'
+  cause: missing_resource
+  implicates: [archivexl]
+  fix: {action: advise}
+  message: "An ArchiveXL .xl links to a resource that is not installed, so the mod shows a missing or invisible item. The mod is missing a dependency or was installed without all of its files."
+  evidence:
+    - {kind: code, url: "https://github.com/psiberx/cp2077-archive-xl/blob/998f7735593e8d65a2d856369764328777714ccf/src/App/Extensions/ResourceLink/Extension.cpp#L181", observed: 2026-10-30}
+  fixture: archivexl-link-missing-resource.log
+
+- id: S-archivexl-mesh-no-appearances
+  log: archivexl
+  match: 'has no appearances and will crash the game when used'
+  cause: invalid_mesh
+  implicates: [archivexl]
+  fix: {action: disable}
+  message: "A mesh added by a mod has no appearances, and using it crashes the game. Update or remove the mod that adds that mesh."
+  evidence:
+    - {kind: code, url: "https://github.com/psiberx/cp2077-archive-xl/blob/998f7735593e8d65a2d856369764328777714ccf/src/App/Extensions/Mesh/Extension.cpp#L74", observed: 2026-10-30}
+  fixture: archivexl-mesh-no-appearances.log
+
+- id: S-archivexl-pattern-not-found
+  log: archivexl
+  match: 'is not applied, expected pattern was not found'
+  cause: patch_not_applied
+  implicates: [archivexl]
+  fix: {action: update, target: archivexl}
+  message: "ArchiveXL could not apply one of its own patches because the game code changed, so the feature that depends on it is limited. Update ArchiveXL for this game patch."
+  evidence:
+    - {kind: code, url: "https://github.com/psiberx/cp2077-archive-xl/blob/998f7735593e8d65a2d856369764328777714ccf/src/App/Patches/WorldWidgetLimitPatch.cpp#L28", observed: 2026-10-30}
+  fixture: archivexl-pattern-not-found.log
+
+- id: S-archivexl-sector-nodes
+  log: archivexl
+  match: 'target sector has [^,]+ node\(s\), but the mod expects'
+  cause: world_streaming_conflict
+  implicates: [archivexl]
+  fix: {action: advise}
+  message: "A world-streaming sector patch does not match this game build (different node count), so that mod's world edits are skipped. Update the mod, or remove the other world mod that changed the same sector."
+  evidence:
+    - {kind: code, url: "https://github.com/psiberx/cp2077-archive-xl/blob/998f7735593e8d65a2d856369764328777714ccf/src/App/Extensions/WorldStreaming/Extension.cpp#L162", observed: 2026-10-30}
+  fixture: archivexl-sector-nodes.log
+
+- id: S-archivexl-translations-issues
+  log: archivexl
+  match: 'Translations merged with issues\.'
+  cause: localization_conflict
+  implicates: [archivexl]
+  fix: {action: advise}
+  message: "Two mods change the same subtitle or localization keys, and ArchiveXL merged them with errors, so some text may be wrong or missing. Remove one of the mods that edits the same localization file."
+  evidence:
+    - {kind: code, url: "https://github.com/psiberx/cp2077-archive-xl/blob/998f7735593e8d65a2d856369764328777714ccf/src/App/Extensions/Localization/Extension.cpp#L138", observed: 2026-10-30}
+  fixture: archivexl-translations-issues.log
+
+- id: S-tweakxl-unknown-property
+  log: tweakxl
+  match: ': Unknown property [^.]+\.'
+  cause: tweak_schema_unknown
+  implicates: [tweakxl]
+  fix: {action: advise}
+  message: "A .tweak or .yaml file sets a property this game build does not have, so that tweak is skipped. The mod is for another patch or has a typo; update it."
+  evidence:
+    - {kind: code, url: "https://github.com/psiberx/cp2077-tweak-xl/blob/3875f1debedefd080f471b3db9b929566137eb88/src/App/Tweaks/Declarative/Yaml/YamlReader.cpp#L402", observed: 2026-10-30}
+  fixture: tweakxl-unknown-property.log
+
+- id: S-tweakxl-third-party-changes
+  log: tweakxl
+  match: 'Cannot restore .+, third party changes detected\.'
+  cause: tweak_conflict
+  implicates: [tweakxl]
+  fix: {action: advise}
+  message: "Another mod or CET changed the same TweakDB flat, so TweakXL will not restore it on reload and the value may drift. Two mods edit the same value; keep only one."
+  evidence:
+    - {kind: code, url: "https://github.com/psiberx/cp2077-tweak-xl/blob/3875f1debedefd080f471b3db9b929566137eb88/src/App/Tweaks/Batch/TweakChangelog.cpp#L220", observed: 2026-10-30}
+  fixture: tweakxl-third-party-changes.log
+
+- id: S-tweakxl-flat-type-conflict
+  log: tweakxl
+  match: 'Cannot assign value for flat .+, incompatible type .+\.'
+  cause: tweak_type_conflict
+  implicates: [tweakxl]
+  fix: {action: advise}
+  message: "Two mods define the same TweakDB flat with different types, so this value is rejected and gameplay values may be wrong. Remove one of the conflicting tweak mods."
+  evidence:
+    - {kind: code, url: "https://github.com/psiberx/cp2077-tweak-xl/blob/3875f1debedefd080f471b3db9b929566137eb88/src/App/Tweaks/Batch/TweakChangeset.cpp#L512", observed: 2026-10-30}
+  fixture: tweakxl-flat-type-conflict.log
+
+- id: S-tweakxl-missing-record
+  log: tweakxl
+  match: 'refers to a non-existent record or flat'
+  cause: missing_tweak_record
+  implicates: [tweakxl]
+  fix: {action: advise}
+  message: "A tweak refers to a record or flat that does not exist, so it is skipped. The mod is missing a dependency or uses a name from another patch; install the required mod or update this one."
+  evidence:
+    - {kind: code, url: "https://github.com/psiberx/cp2077-tweak-xl/blob/3875f1debedefd080f471b3db9b929566137eb88/src/App/Tweaks/Batch/TweakChangelog.cpp#L135", observed: 2026-10-30}
+  fixture: tweakxl-missing-record.log
+
+- id: S-tweakxl-bad-yaml
+  log: tweakxl
+  match: 'Bad format\. Unexpected data at the top level\.'
+  cause: malformed_tweak_yaml
+  implicates: [tweakxl]
+  fix: {action: advise}
+  message: "A .tweak or .yaml file is not a mapping at the top level, so TweakXL skipped the whole file. The mod's tweak file is malformed; reinstall or fix it."
+  evidence:
+    - {kind: code, url: "https://github.com/psiberx/cp2077-tweak-xl/blob/3875f1debedefd080f471b3db9b929566137eb88/src/App/Tweaks/Declarative/Yaml/YamlReader.cpp#L69", observed: 2026-10-30}
+  fixture: tweakxl-bad-yaml.log
+
+- id: S-codeware-persistent-dir
+  log: codeware
+  match: 'Cannot create directory "[^"]+" for persistent data'
+  cause: persisted_state_failed
+  implicates: [codeware]
+  fix: {action: advise}
+  message: "Codeware cannot create its state folder, so it cannot save data between sessions and some features reset. A read-only or missing user profile folder is the usual cause; check permissions on the Codeware state directory."
+  evidence:
+    - {kind: code, url: "https://github.com/psiberx/cp2077-codeware/blob/decce71323d6f6183cf78143882032a3c70aac9e/src/App/Scripting/ScriptingService.cpp#L39", observed: 2026-10-30}
+  fixture: codeware-persistent-dir.log
+
+- id: S-codeware-state-load
+  log: codeware
+  match: 'Can.t load state from'
+  cause: persisted_state_failed
+  implicates: [codeware]
+  fix: {action: quarantine}
+  message: "Codeware could not read its saved state file, so the state is ignored and features that depend on it start fresh. The file is corrupt; delete the Codeware state file and let Codeware recreate it."
+  evidence:
+    - {kind: code, url: "https://github.com/psiberx/cp2077-codeware/blob/decce71323d6f6183cf78143882032a3c70aac9e/src/App/Scripting/ScriptableServiceContainer.cpp#L89", observed: 2026-10-30}
+  fixture: codeware-state-load.log
+
+- id: S-mod-settings-archive-missing
+  log: other
+  match: 'Could not register ModSettings\.archive'
+  cause: mod_settings_missing
+  implicates: [mod_settings, archivexl]
+  fix: {action: advise}
+  message: "Mod Settings could not register ModSettings.archive, so the Mod Settings menu is missing or blank in game. Install ArchiveXL, or restore ModSettings.archive in the Mod Settings plugin folder."
+  evidence:
+    - {kind: code, url: "https://github.com/jackhumbert/mod_settings/blob/26d6715f497a5d5af37171dd6d77e695cf5f6a21/src/red4ext/Main.cpp#L75", observed: 2026-10-30}
+  fixture: mod-settings-archive-missing.log

@@ -1,0 +1,50 @@
+- id: S-crash-access-violation
+  log: crash_report
+  match: 'Expression: EXCEPTION_ACCESS_VIOLATION \(0x[0-9A-Fa-f]+\)'
+  cause: native_crash_unattributed
+  fix: {action: advise}
+  message: "The game crashed in native code with an access violation. This is not a script error: a mod DLL or the game build is at fault. Update RED4ext and all native plugins for your game patch, then retest."
+  evidence:
+    - {kind: issue, url: "https://github.com/psiberx/cp2077-equipment-ex/issues/18", observed: 2026-10-30}
+  fixture: crash-access-violation.log
+
+- id: S-crash-red4ext-assertion
+  log: red4ext
+  match: '^Crash report$'
+  cause: assertion_failed
+  fix: {action: advise}
+  message: "The game hit an internal assertion and RED4ext logged a crash report. The File and Line lines after this one name the failing game function; an outdated native mod or a modded asset is the usual cause."
+  evidence:
+    - {kind: code, url: "https://github.com/wopss/RED4ext/blob/9f135ac339b00c55a68d06ce7106e960dd82962a/src/dll/Hooks/AssertionFailed.cpp#L19", observed: 2026-10-30}
+  fixture: crash-red4ext-assertion.log
+
+- id: S-crash-session-error
+  log: red4ext
+  match: 'A game session error occurred\. Error code: '
+  cause: game_session_error
+  fix: {action: advise}
+  message: "The game reported a session error through RED4ext and stopped. This usually follows a failed native mod or a damaged save; check the lines above for the plugin that was loading."
+  evidence:
+    - {kind: code, url: "https://github.com/wopss/RED4ext/blob/9f135ac339b00c55a68d06ce7106e960dd82962a/src/dll/Hooks/gsmState_SessionActive.cpp#L25", observed: 2026-10-30}
+  fixture: crash-session-error.log
+
+- id: S-crash-policy-blocked
+  log: crash_report
+  match: 'A policy of your system blocked this file'
+  cause: blocked_by_policy
+  implicates: [red4ext]
+  fix: {action: advise}
+  message: "Windows blocked RED4ext.dll (Smart App Control, Defender, or an application-control policy), so the game starts without RED4ext and no mods load. Allow the file in Windows security, then relaunch."
+  evidence:
+    - {kind: issue, url: "https://github.com/WopsS/RED4ext/issues/133", observed: 2026-10-30}
+  fixture: crash-policy-blocked.log
+
+- id: S-crash-tweakdb-corrupted
+  log: crash_report
+  match: 'corrupted or missing TweakDB file'
+  cause: corrupt_game_data
+  fix: {action: advise}
+  message: "The game's TweakDB file is corrupted or missing, so it closes at startup. Restore r6/cache/tweakDB.bin from a backup or verify the game files, then launch once without mods."
+  evidence:
+    - {kind: wiki, url: "https://wiki.redmodding.org/cyberpunk-2077-modding/help/users-troubleshooting", observed: 2026-10-30}
+  fixture: crash-tweakdb-corrupted.log

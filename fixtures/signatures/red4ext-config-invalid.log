@@ -1,0 +1,5 @@
+# synthetic: replace from rig
+# source: https://github.com/wopss/RED4ext/blob/9f135ac339b00c55a68d06ce7106e960dd82962a/src/dll/Config.cpp#L19
+# source: https://github.com/wopss/RED4ext/blob/9f135ac339b00c55a68d06ce7106e960dd82962a/src/dll/Config.cpp#L87
+An exception occured while parsing the config file:
+Config version '{}' is not supported (version < {} or version > {}).

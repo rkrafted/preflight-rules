@@ -1,0 +1,131 @@
+- id: S-cet-unsupported-game-version
+  log: cet
+  match: 'Unsupported game version! Only '
+  cause: game_version_unsupported
+  implicates: [cet]
+  fix: {action: update, target: cet}
+  message: "Cyber Engine Tweaks supports exactly one game build and this is a different one, so CET turns itself off and no CET mods run. Update CET to the release made for this game patch."
+  evidence:
+    - {kind: code, url: "https://github.com/maximegmd/CyberEngineTweaks/blob/213151fa22c79182922a08a44e4a44d44739d1cd/src/Options.cpp#L190", observed: 2026-10-30}
+  fixture: cet-unsupported-game-version.log
+
+- id: S-cet-unknown-game-version
+  log: cet
+  match: 'Unknown Game Version, update the mod'
+  cause: game_version_unsupported
+  implicates: [cet]
+  fix: {action: update, target: cet}
+  message: "CET does not recognise the game executable's version and shuts down. Update CET, and check the game is a legitimate, fully patched copy."
+  evidence:
+    - {kind: code, url: "https://github.com/maximegmd/CyberEngineTweaks/blob/213151fa22c79182922a08a44e4a44d44739d1cd/src/Options.cpp#L196", observed: 2026-10-30}
+  fixture: cet-unknown-game-version.log
+
+- id: S-cet-hook-script-log
+  log: cet
+  match: 'Could not hook CScript::(?:Log|LogChannelWarning|TweakDBLoad) function!'
+  cause: game_version_unsupported
+  implicates: [cet]
+  fix: {action: update, target: cet}
+  message: "CET could not hook the game's script log functions, which means its addresses do not match this game build. CET will not work; update CET for this patch."
+  evidence:
+    - {kind: issue, url: "https://github.com/maximegmd/CyberEngineTweaks/issues/1040", observed: 2026-10-30}
+  fixture: cet-hook-script-log.log
+
+- id: S-cet-hook-present
+  log: cet
+  match: 'Could not hook CRenderNode_Present_InternalPresent function!'
+  cause: game_version_unsupported
+  implicates: [cet]
+  fix: {action: update, target: cet}
+  message: "CET could not hook the Direct3D 12 present function, so its overlay does not appear and CET mods cannot draw a UI. This is a CET/game-build mismatch; update CET."
+  evidence:
+    - {kind: code, url: "https://github.com/maximegmd/CyberEngineTweaks/blob/213151fa22c79182922a08a44e4a44d44739d1cd/src/d3d12/D3D12_Hooks.cpp#L96", observed: 2026-10-30}
+  fixture: cet-hook-present.log
+
+- id: S-cet-unsupported-os
+  log: cet
+  match: '\] Unsupported OS!$'
+  cause: unsupported_os
+  implicates: [cet]
+  fix: {action: advise}
+  message: "CET refused to start because Wine/Proton reports Windows 7. Set the game's Proton prefix to Windows 10 (protontricks 1091500 -q win10) so CET can create its overlay."
+  evidence:
+    - {kind: issue, url: "https://github.com/maximegmd/CyberEngineTweaks/issues/1045", observed: 2026-10-30}
+  fixture: cet-unsupported-os.log
+
+- id: S-cet-address-resolve-failed
+  log: cet
+  match: 'Failed to resolve address for hash'
+  cause: game_version_unsupported
+  implicates: [cet]
+  fix: {action: update, target: cet}
+  message: "CET could not find a game function by its address hash, so it closed the game with an error box. CET does not match this game build; update CET."
+  evidence:
+    - {kind: code, url: "https://github.com/maximegmd/CyberEngineTweaks/blob/213151fa22c79182922a08a44e4a44d44739d1cd/src/reverse/Relocation.h#L60", observed: 2026-10-30}
+  fixture: cet-address-resolve-failed.log
+
+- id: S-cet-mod-no-init
+  log: cet
+  match: 'Ignoring mod which does not contain init\.lua!'
+  cause: lua_mod_failed
+  implicates: [cet]
+  fix: {action: advise}
+  message: "A folder in the CET mods directory has no init.lua, so CET ignores it. This is usually a mod unpacked one folder too deep; move the folder that contains init.lua into cyber_engine_tweaks/mods."
+  evidence:
+    - {kind: code, url: "https://github.com/maximegmd/CyberEngineTweaks/blob/213151fa22c79182922a08a44e4a44d44739d1cd/src/scripting/ScriptStore.cpp#L60", observed: 2026-10-30}
+  fixture: cet-mod-no-init.log
+
+- id: S-cet-mod-failed-load
+  log: cet
+  match: 'Mod .+ failed to load!'
+  cause: lua_mod_failed
+  implicates: [cet]
+  fix: {action: advise}
+  message: "A CET Lua mod failed during startup, so its features are missing. Its own log file next to the mod has the Lua error; update or remove that mod."
+  evidence:
+    - {kind: code, url: "https://github.com/maximegmd/CyberEngineTweaks/blob/213151fa22c79182922a08a44e4a44d44739d1cd/src/scripting/ScriptStore.cpp#L71", observed: 2026-10-30}
+  fixture: cet-mod-failed-load.log
+
+- id: S-cet-lua-module-missing
+  log: cet
+  match: "Cannot load module '[^']+': "
+  cause: lua_dependency_missing
+  implicates: [cet]
+  fix: {action: advise}
+  message: "A CET mod requires a Lua module that is not installed or failed to load, so that mod and anything that needs it do not work. Reinstall the mod with all of its files, including its lib folder."
+  evidence:
+    - {kind: code, url: "https://github.com/maximegmd/CyberEngineTweaks/blob/213151fa22c79182922a08a44e4a44d44739d1cd/src/scripting/LuaSandbox.cpp#L452", observed: 2026-10-30}
+  fixture: cet-lua-module-missing.log
+
+- id: S-cet-redmod-tweakdb
+  log: cet
+  match: 'Failed to load REDMod TweakDB\. Modded entries may not'
+  cause: redmod_tweakdb_failed
+  implicates: [cet]
+  fix: {action: advise}
+  message: "CET could not load the REDmod TweakDB, so tweak entries from REDmods may be missing in the TweakDB editor. Re-run redmod deploy, or start the game once with -modded."
+  evidence:
+    - {kind: code, url: "https://github.com/maximegmd/CyberEngineTweaks/blob/213151fa22c79182922a08a44e4a44d44739d1cd/src/scripting/LuaVM_Hooks.cpp#L183", observed: 2026-10-30}
+  fixture: cet-redmod-tweakdb.log
+
+- id: S-cet-missing-tweakdbstr
+  log: cet
+  match: 'Missing tweakdbstr\.kark!'
+  cause: missing_tweakdb_data
+  implicates: [cet]
+  fix: {action: advise}
+  message: "CET cannot find tweakdbstr.kark, so TweakDB metadata and the TweakDB editor are unavailable. The file belongs to the base game; verify the game files."
+  evidence:
+    - {kind: code, url: "https://github.com/maximegmd/CyberEngineTweaks/blob/213151fa22c79182922a08a44e4a44d44739d1cd/src/scripting/LuaVM_Hooks.cpp#L113", observed: 2026-10-30}
+  fixture: cet-missing-tweakdbstr.log
+
+- id: S-cet-config-invalid
+  log: cet
+  match: 'Failed to parse config\.json, using default config instead\.'
+  cause: bad_config
+  implicates: [cet]
+  fix: {action: advise}
+  message: "CET's config.json is malformed, so CET falls back to defaults and your CET settings and keybinds are ignored. Fix or delete the file and restart CET."
+  evidence:
+    - {kind: code, url: "https://github.com/maximegmd/CyberEngineTweaks/blob/213151fa22c79182922a08a44e4a44d44739d1cd/src/Options.cpp#L94", observed: 2026-10-30}
+  fixture: cet-config-invalid.log

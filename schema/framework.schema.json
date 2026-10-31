@@ -1,0 +1,324 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Framework",
+  "description": "`frameworks/<id>.yaml`",
+  "type": "object",
+  "required": [
+    "detect",
+    "gate",
+    "id",
+    "kind",
+    "names",
+    "releases"
+  ],
+  "properties": {
+    "detect": {
+      "$ref": "#/definitions/Detect"
+    },
+    "gate": {
+      "$ref": "#/definitions/Gate"
+    },
+    "id": {
+      "type": "string"
+    },
+    "ids": {
+      "default": {},
+      "allOf": [
+        {
+          "$ref": "#/definitions/SourceIds"
+        }
+      ]
+    },
+    "kind": {
+      "$ref": "#/definitions/Kind"
+    },
+    "names": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "releases": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Release"
+      }
+    },
+    "sources": {
+      "description": "Where Preflight may download this mod from, in preference order.",
+      "default": [],
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Source"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "Asset": {
+      "type": "object",
+      "required": [
+        "sha256",
+        "url"
+      ],
+      "properties": {
+        "sha256": {
+          "description": "sha256 of the whole zip.",
+          "type": "string"
+        },
+        "url": {
+          "description": "`https://github.com/<owner>/<repo>/releases/download/...` only.",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Channel": {
+      "type": "string",
+      "enum": [
+        "stable",
+        "rc",
+        "preview"
+      ]
+    },
+    "Dep": {
+      "type": "object",
+      "required": [
+        "mod",
+        "version"
+      ],
+      "properties": {
+        "mod": {
+          "type": "string"
+        },
+        "version": {
+          "description": "semver requirement, e.g. \">=1.31.0\".",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Detect": {
+      "type": "object",
+      "required": [
+        "paths"
+      ],
+      "properties": {
+        "paths": {
+          "description": "Marker paths relative to the game root; all must exist.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "Evidence": {
+      "type": "object",
+      "required": [
+        "kind",
+        "url"
+      ],
+      "properties": {
+        "kind": {
+          "$ref": "#/definitions/EvidenceKind"
+        },
+        "observed": {
+          "description": "Date the evidence was checked, YYYY-MM-DD.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EvidenceKind": {
+      "type": "string",
+      "enum": [
+        "code",
+        "readme",
+        "release_note",
+        "wiki",
+        "issue",
+        "thread",
+        "crash_log"
+      ]
+    },
+    "GameWindow": {
+      "type": "object",
+      "properties": {
+        "max": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "min": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "Gate": {
+      "description": "How the mod reacts to a game build it was not made for (G3: three gate classes).",
+      "oneOf": [
+        {
+          "description": "Refuses to run unless the build matches exactly (CET).",
+          "type": "string",
+          "enum": [
+            "hard_exact"
+          ]
+        },
+        {
+          "description": "Refuses to run below a minimum build (RED4ext).",
+          "type": "string",
+          "enum": [
+            "hard_min"
+          ]
+        },
+        {
+          "description": "Runs on any build; individual features may degrade (ArchiveXL, TweakXL, Codeware...).",
+          "type": "string",
+          "enum": [
+            "runtime_independent"
+          ]
+        }
+      ]
+    },
+    "Kind": {
+      "type": "string",
+      "enum": [
+        "framework",
+        "content",
+        "patch",
+        "tool"
+      ]
+    },
+    "Release": {
+      "type": "object",
+      "required": [
+        "date",
+        "evidence",
+        "version"
+      ],
+      "properties": {
+        "asset": {
+          "description": "The release zip Preflight may install from (its files are laid out relative to the game root).",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Asset"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "channel": {
+          "default": "stable",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Channel"
+            }
+          ]
+        },
+        "date": {
+          "description": "Release date, YYYY-MM-DD.",
+          "type": "string"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Evidence"
+          }
+        },
+        "game": {
+          "default": {},
+          "allOf": [
+            {
+              "$ref": "#/definitions/GameWindow"
+            }
+          ]
+        },
+        "requires": {
+          "default": [],
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Dep"
+          }
+        },
+        "sha256": {
+          "description": "sha256 per installed file (path relative to game root) for exact version detection.",
+          "default": {},
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "soft": {
+          "description": "Optional dependencies used when present.",
+          "default": [],
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Dep"
+          }
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Source": {
+      "type": "object",
+      "required": [
+        "kind",
+        "url"
+      ],
+      "properties": {
+        "kind": {
+          "$ref": "#/definitions/SourceKind"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "SourceIds": {
+      "type": "object",
+      "properties": {
+        "github": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "nexus": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint32",
+          "minimum": 0.0
+        }
+      },
+      "additionalProperties": false
+    },
+    "SourceKind": {
+      "type": "string",
+      "enum": [
+        "github_release",
+        "author_site",
+        "nexus"
+      ]
+    }
+  }
+}

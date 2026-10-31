@@ -1,0 +1,46 @@
+id: mod_settings
+names: ["Mod Settings"]
+ids: {github: jackhumbert/mod_settings}
+kind: framework
+gate: runtime_independent
+detect:
+  paths: ["red4ext/plugins/mod_settings/mod_settings.dll"]   # provisional: confirm on the Windows rig (T4)
+sources:
+  - {kind: github_release, url: "https://github.com/jackhumbert/mod_settings/releases"}
+releases:
+  - version: "0.2.28"
+    date: 2026-10-28
+    game: {min: "2.5"}
+    requires:
+      - {mod: red4ext, version: ">=1.31.0"}
+      - {mod: archivexl, version: ">=1.28.0"}
+      - {mod: redscript, version: ">=0.5.32"}
+    soft:
+      - {mod: input_loader, version: ">=0.2.3"}   # keybinds only
+    sha256:
+      red4ext/plugins/mod_settings/mod_settings.dll: 5e6ba38104c6c4e64e8d7c4d3bc18b64eebb6b1c8b2235e9ba3ed95df176a203
+      red4ext/plugins/mod_settings/packed.reds: ac757351b325f45dbd7814333de3bcb977af672acac10b706a8becdbdd033748
+      red4ext/plugins/mod_settings/ModSettings.archive: 6741ec88617def8ec6c42b5fe54970923ac9dc3413721dd10850ac02d56d5c2a
+    asset: {url: "https://github.com/jackhumbert/mod_settings/releases/download/v0.2.28/mod_settings_v0.2.28.zip", sha256: b9488daa7da85c0430853df4570dbf94dd768d11c4dabee97d732072746d40e7}
+    evidence:
+      - {kind: readme, url: "https://github.com/jackhumbert/mod_settings/blob/26d6715f497a5d5af37171dd6d77e695cf5f6a21/requirements.md#L2", observed: 2026-10-30}
+      - {kind: readme, url: "https://github.com/jackhumbert/mod_settings/blob/26d6715f497a5d5af37171dd6d77e695cf5f6a21/requirements.md#L3", observed: 2026-10-30}
+      - {kind: readme, url: "https://github.com/jackhumbert/mod_settings/blob/26d6715f497a5d5af37171dd6d77e695cf5f6a21/requirements.md#L4", observed: 2026-10-30}
+  - version: "0.2.21"
+    date: 2025-07-19
+    game: {min: "2.3", max: "2.31"}
+    requires:
+      - {mod: red4ext, version: ">=1.27.0"}
+      - {mod: archivexl, version: ">=1.23.0"}
+      - {mod: redscript, version: ">=0.5.28"}
+    soft:
+      - {mod: input_loader, version: ">=0.2.3"}
+    sha256:
+      red4ext/plugins/mod_settings/mod_settings.dll: 6be425177778a3857a392251bbbcd1aab450dda600c1a56b0f4dd4eac9c3a9cc
+      red4ext/plugins/mod_settings/packed.reds: df637d56b3faff393830befcfa9d6ef7ff33567557060729a4b80d2a10782cf9
+      red4ext/plugins/mod_settings/ModSettings.archive: dc858b9e746e7b3df4d5fa0527e150fefa49cd4fb721ddd0faf5f4e21528d08c
+    asset: {url: "https://github.com/jackhumbert/mod_settings/releases/download/v0.2.21/mod_settings_v0.2.21.zip", sha256: 7efa862a688e61002979de06ed0e7dcf0205f8d480c28aa91d8063721f27ce1f}
+    evidence:
+      - {kind: readme, url: "https://github.com/jackhumbert/mod_settings/blob/42318192d4eac203f3010e76672098010802496e/requirements.md#L2", observed: 2026-10-30}
+      - {kind: readme, url: "https://github.com/jackhumbert/mod_settings/blob/42318192d4eac203f3010e76672098010802496e/requirements.md#L3", observed: 2026-10-30}
+      - {kind: readme, url: "https://github.com/jackhumbert/mod_settings/blob/42318192d4eac203f3010e76672098010802496e/requirements.md#L4", observed: 2026-10-30}

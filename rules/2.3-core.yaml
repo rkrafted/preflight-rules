@@ -1,0 +1,65 @@
+# Patch 2.3 rules: the minimum framework set that runs on 2.3.
+- id: R-0300
+  type: needs_patch
+  subject: {mod: red4ext, version: "<1.28.0"}
+  when: {game: "==2.3"}
+  effect: block
+  fix: {action: update, target: red4ext}
+  message: "RED4ext 1.27 and older were built for patch 2.21 and cannot load on 2.3, so no RED4ext plugin starts. Install RED4ext 1.28.0 or newer."
+  evidence:
+    - {kind: release_note, url: "https://github.com/wopss/RED4ext/releases/tag/v1.28.0", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0300
+
+- id: R-0301
+  type: needs_patch
+  subject: {mod: cet, version: "<1.36.0"}
+  when: {game: "==2.3"}
+  effect: block
+  fix: {action: update, target: cet}
+  message: "CET 1.35 and older only support patch 2.21; on 2.3 they log \"Unsupported game version\" and stay off. Install CET 1.36.0 or newer."
+  evidence:
+    - {kind: release_note, url: "https://github.com/maximegmd/CyberEngineTweaks/releases/tag/v1.36.0", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0301
+
+- id: R-0302
+  type: needs_patch
+  subject: {mod: codeware, version: "<1.17.0"}
+  when: {game: "==2.3"}
+  effect: block
+  fix: {action: update, target: codeware}
+  message: "Codeware 1.16 and older cannot initialise on patch 2.3, so every mod that uses its script API stops working. Install Codeware 1.17.0 or newer."
+  evidence:
+    - {kind: release_note, url: "https://github.com/psiberx/cp2077-codeware/releases/tag/v1.17.0", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0302
+
+- id: R-0303
+  type: needs_patch
+  subject: {mod: archivexl, version: "<1.24.0"}
+  when: {game: "==2.3"}
+  effect: block
+  fix: {action: update, target: archivexl}
+  message: "ArchiveXL 1.23 and older do not support patch 2.3 and fail to apply its archive patches, so modded appearances and items go missing. Install ArchiveXL 1.24.0 or newer."
+  evidence:
+    - {kind: release_note, url: "https://github.com/psiberx/cp2077-archive-xl/releases/tag/v1.24.0", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0303
+
+- id: R-0304
+  type: needs_patch
+  subject: {mod: tweakxl, version: "<1.11.0"}
+  when: {game: "==2.3"}
+  effect: block
+  fix: {action: update, target: tweakxl}
+  message: "TweakXL 1.10 and older cannot apply tweaks to patch 2.3's TweakDB, so tweak mods silently do nothing. Install TweakXL 1.11.0 or newer."
+  evidence:
+    - {kind: release_note, url: "https://github.com/psiberx/cp2077-tweak-xl/releases/tag/v1.11.0", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0304

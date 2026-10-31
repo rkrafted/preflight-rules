@@ -1,0 +1,9 @@
+# captured: https://github.com/psiberx/cp2077-equipment-ex/issues/18
+Registered crash info file...
+InternalVersion: 3.0.4984974 P4CL: 6525662 Stream: //R6.Root/R6.Release
+!!!CRASHED!!!
+Error Reason: Unhandled exception
+Expression: EXCEPTION_ACCESS_VIOLATION (0xC0000005)
+Message: The thread attempted to read inaccessible data at 0x1EC.
+File:
+Line: 0

@@ -1,0 +1,110 @@
+# Patch 2.2 rules: the minimum framework set that runs on 2.2, plus the release that
+# EquipmentEx 1.2.7 itself declares for that build.
+- id: R-0500
+  type: needs_patch
+  subject: {mod: red4ext, version: "<1.26.0"}
+  when: {game: "==2.2"}
+  effect: block
+  fix: {action: update, target: red4ext}
+  message: "RED4ext 1.25 and older were built for patch 2.13 and cannot hook patch 2.2, so no RED4ext plugin starts. Install RED4ext 1.26.0 or newer."
+  evidence:
+    - {kind: release_note, url: "https://github.com/wopss/RED4ext/releases/tag/v1.26.0", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0500
+
+- id: R-0501
+  type: needs_patch
+  subject: {mod: cet, version: "<1.34.1"}
+  when: {game: "==2.2"}
+  effect: block
+  fix: {action: update, target: cet}
+  message: "CET 1.34.0 carries the wrong TweakDB databases for patch 2.2, so tweak lookups fail; 1.34.1 updates them. Install CET 1.34.1 or newer."
+  evidence:
+    - {kind: release_note, url: "https://github.com/maximegmd/CyberEngineTweaks/releases/tag/v1.34.1", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0501
+
+- id: R-0502
+  type: needs_patch
+  subject: {mod: codeware, version: "<1.14.0"}
+  when: {game: "==2.2"}
+  effect: block
+  fix: {action: update, target: codeware}
+  message: "Codeware 1.13 shipped before patch 2.2 and covers only its pre-release build, so mods that use its API break on the final patch. Install Codeware 1.14.0 or newer."
+  evidence:
+    - {kind: release_note, url: "https://github.com/psiberx/cp2077-codeware/releases/tag/v1.13.0", observed: 2026-10-30}
+    - {kind: release_note, url: "https://github.com/psiberx/cp2077-codeware/releases/tag/v1.14.0", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0502
+
+- id: R-0503
+  type: needs_patch
+  subject: {mod: archivexl, version: "<1.19.0"}
+  when: {game: "==2.2"}
+  effect: block
+  fix: {action: update, target: archivexl}
+  message: "ArchiveXL 1.18 shipped before patch 2.2 and covers only its pre-release build, so archive patches can fail on the final patch. Install ArchiveXL 1.19.0 or newer."
+  evidence:
+    - {kind: release_note, url: "https://github.com/psiberx/cp2077-archive-xl/releases/tag/v1.18.0", observed: 2026-10-30}
+    - {kind: release_note, url: "https://github.com/psiberx/cp2077-archive-xl/releases/tag/v1.19.0", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0503
+
+- id: R-0504
+  type: needs_patch
+  subject: {mod: tweakxl, version: "<1.10.6"}
+  when: {game: "==2.2"}
+  effect: block
+  fix: {action: update, target: tweakxl}
+  message: "TweakXL 1.10.6 updates its TweakDB metadata for patch 2.2; older releases carry the previous patch's data, so tweaks do not apply. Install TweakXL 1.10.6 or newer."
+  evidence:
+    - {kind: release_note, url: "https://github.com/psiberx/cp2077-tweak-xl/releases/tag/v1.10.6", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0504
+
+- id: R-0505
+  type: requires
+  subject: {mod: equipmentex, version: ">=1.2.7, <1.2.9"}
+  object: {mod: codeware, version: ">=1.12.7"}
+  when: {game: "==2.2"}
+  effect: block
+  fix: {action: update, target: codeware}
+  message: "EquipmentEx 1.2.7 needs Codeware 1.12.7 or newer; without it the outfit system does not start and its warning appears in game. Update Codeware."
+  evidence:
+    - {kind: code, url: "https://github.com/psiberx/cp2077-equipment-ex/blob/c5b124fa25fa3b6d3fa7270b9bb02cf9ed18d4e3/scripts/CompatibilityManager.reds#L4", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0505
+
+- id: R-0506
+  type: requires
+  subject: {mod: equipmentex, version: ">=1.2.7, <1.2.9"}
+  object: {mod: archivexl, version: ">=1.16.9"}
+  when: {game: "==2.2"}
+  effect: block
+  fix: {action: update, target: archivexl}
+  message: "EquipmentEx 1.2.7 needs ArchiveXL 1.16.9 or newer; without it its outfit archives are not patched. Update ArchiveXL."
+  evidence:
+    - {kind: code, url: "https://github.com/psiberx/cp2077-equipment-ex/blob/c5b124fa25fa3b6d3fa7270b9bb02cf9ed18d4e3/scripts/CompatibilityManager.reds#L5", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0506
+
+- id: R-0507
+  type: requires
+  subject: {mod: equipmentex, version: ">=1.2.7, <1.2.9"}
+  object: {mod: tweakxl, version: ">=1.10.4"}
+  when: {game: "==2.2"}
+  effect: block
+  fix: {action: update, target: tweakxl}
+  message: "EquipmentEx 1.2.7 needs TweakXL 1.10.4 or newer; without it its outfit tweaks are not applied. Update TweakXL."
+  evidence:
+    - {kind: code, url: "https://github.com/psiberx/cp2077-equipment-ex/blob/c5b124fa25fa3b6d3fa7270b9bb02cf9ed18d4e3/scripts/CompatibilityManager.reds#L6", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0507

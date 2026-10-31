@@ -1,0 +1,195 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Array_of_Signature",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/Signature"
+  },
+  "definitions": {
+    "Effect": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "warn",
+            "info"
+          ]
+        },
+        {
+          "description": "Deploy/launch gate.",
+          "type": "string",
+          "enum": [
+            "block"
+          ]
+        }
+      ]
+    },
+    "Evidence": {
+      "type": "object",
+      "required": [
+        "kind",
+        "url"
+      ],
+      "properties": {
+        "kind": {
+          "$ref": "#/definitions/EvidenceKind"
+        },
+        "observed": {
+          "description": "Date the evidence was checked, YYYY-MM-DD.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EvidenceKind": {
+      "type": "string",
+      "enum": [
+        "code",
+        "readme",
+        "release_note",
+        "wiki",
+        "issue",
+        "thread",
+        "crash_log"
+      ]
+    },
+    "Fix": {
+      "type": "object",
+      "required": [
+        "action"
+      ],
+      "properties": {
+        "action": {
+          "$ref": "#/definitions/FixAction"
+        },
+        "target": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "FixAction": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "install",
+            "update",
+            "disable",
+            "reorder",
+            "quarantine",
+            "clear_cache",
+            "advise"
+          ]
+        },
+        {
+          "description": "Run a Preflight catalogue fix (the finding names it in `fix_id`).",
+          "type": "string",
+          "enum": [
+            "repair"
+          ]
+        }
+      ]
+    },
+    "LogKind": {
+      "type": "string",
+      "enum": [
+        "redscript",
+        "red4ext",
+        "cet",
+        "archivexl",
+        "tweakxl",
+        "codeware",
+        "input_loader",
+        "crash_report",
+        "other"
+      ]
+    },
+    "Signature": {
+      "description": "One entry in a `signatures/*.yaml` list (crash/log ingestion).",
+      "type": "object",
+      "required": [
+        "cause",
+        "evidence",
+        "fixture",
+        "id",
+        "log",
+        "match",
+        "message"
+      ],
+      "properties": {
+        "cause": {
+          "description": "Cause class, e.g. \"game_older_than_framework\".",
+          "type": "string"
+        },
+        "effect": {
+          "description": "How bad a match is; defaults to a warning.",
+          "default": "warn",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Effect"
+            }
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Evidence"
+          }
+        },
+        "fix": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Fix"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fixture": {
+          "description": "File (relative to `fixtures/signatures/`) with a real log excerpt the pattern must match.",
+          "type": "string"
+        },
+        "id": {
+          "description": "`S-` followed by lowercase words joined with dashes.",
+          "type": "string"
+        },
+        "implicates": {
+          "default": [],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "log": {
+          "$ref": "#/definitions/LogKind"
+        },
+        "match": {
+          "description": "Regex (Rust `regex` syntax) matched against single log lines.",
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "rank": {
+          "description": "Tie-break between signatures that match the same log: lower wins. Location-only lines (e.g. \"At <file>:<line>:<col>:\") sit above 100 so the cause line is reported first.",
+          "default": 100,
+          "type": "integer",
+          "format": "uint8",
+          "minimum": 0.0
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

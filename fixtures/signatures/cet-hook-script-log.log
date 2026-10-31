@@ -1,0 +1,3 @@
+# captured: https://github.com/maximegmd/CyberEngineTweaks/issues/1040
+[2025-10-26 22:50:02 UTC+08:00] [error] [void __cdecl LuaVM::Hook(void)] [12556] Could not hook CScript::Log function!
+[2025-10-26 22:50:02 UTC+08:00] [error] [void __cdecl LuaVM::Hook(void)] [12556] Could not hook CScript::LogChannelWarning function!

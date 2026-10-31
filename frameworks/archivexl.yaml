@@ -1,0 +1,42 @@
+id: archivexl
+names: ["ArchiveXL"]
+ids: {github: psiberx/cp2077-archive-xl}
+kind: framework
+gate: runtime_independent
+detect:
+  paths: ["red4ext/plugins/ArchiveXL/ArchiveXL.dll"]   # provisional: confirm on the Windows rig (T4)
+sources:
+  - {kind: github_release, url: "https://github.com/psiberx/cp2077-archive-xl/releases"}
+releases:
+  - version: "1.28.6"
+    date: 2026-10-29
+    game: {min: "2.5"}
+    requires:
+      - {mod: red4ext, version: ">=1.31.0"}
+      - {mod: redscript, version: ">=0.5.32"}
+    soft:
+      - {mod: codeware, version: ">=1.14.0"}
+    sha256:
+      red4ext/plugins/ArchiveXL/ArchiveXL.dll: 97692f23b03fdb87354a3e1a4aaabba7dd604a9b8a16839afb8bcccd2bfe7674
+      red4ext/plugins/ArchiveXL/Bundle/ArchiveXL.archive: 8efa034dca39d563326eda65b63be87e66953b28f67145c81b2211e00d1c27d9
+    asset: {url: "https://github.com/psiberx/cp2077-archive-xl/releases/download/v1.28.6/ArchiveXL-1.28.6.zip", sha256: 25d0493a1b3e8ec4c26b7144a4d8f1a1def4d6dc840fff94b4c91c908583da09}
+    evidence:
+      - {kind: readme, url: "https://github.com/psiberx/cp2077-archive-xl/blob/a6908c8ce1d31c9196097cd0f10fa745db30cff0/README.md#L19", observed: 2026-10-30}
+      - {kind: readme, url: "https://github.com/psiberx/cp2077-archive-xl/blob/a6908c8ce1d31c9196097cd0f10fa745db30cff0/README.md#L20", observed: 2026-10-30}
+      - {kind: readme, url: "https://github.com/psiberx/cp2077-archive-xl/blob/a6908c8ce1d31c9196097cd0f10fa745db30cff0/README.md#L25", observed: 2026-10-30}
+  - version: "1.27.5"
+    date: 2026-10-19
+    game: {min: "2.31", max: "2.31"}
+    requires:
+      - {mod: red4ext, version: ">=1.29.0"}
+      - {mod: redscript, version: ">=0.5.31"}
+    soft:
+      - {mod: codeware, version: ">=1.14.0"}
+    sha256:
+      red4ext/plugins/ArchiveXL/ArchiveXL.dll: 761c4059d788d1f96820df239c1422c8892be06f5e5c7137766cd66819410953
+      red4ext/plugins/ArchiveXL/Bundle/ArchiveXL.archive: 70b2967832555292712cc583753da4823113dc7a3f388030b45c6966909241d3
+    asset: {url: "https://github.com/psiberx/cp2077-archive-xl/releases/download/v1.27.5/ArchiveXL-1.27.5.zip", sha256: ce10bb94ca20367975f2362c6a1d47e1e5dd14cd4380f456628f0a96ce1d0913}
+    evidence:
+      - {kind: readme, url: "https://github.com/psiberx/cp2077-archive-xl/blob/48cb8ddb8cd27aa3adac4598578d95a994d1ec44/README.md#L19", observed: 2026-10-30}
+      - {kind: readme, url: "https://github.com/psiberx/cp2077-archive-xl/blob/48cb8ddb8cd27aa3adac4598578d95a994d1ec44/README.md#L20", observed: 2026-10-30}
+      - {kind: readme, url: "https://github.com/psiberx/cp2077-archive-xl/blob/48cb8ddb8cd27aa3adac4598578d95a994d1ec44/README.md#L25", observed: 2026-10-30}

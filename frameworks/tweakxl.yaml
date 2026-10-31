@@ -1,0 +1,40 @@
+id: tweakxl
+names: ["TweakXL"]
+ids: {github: psiberx/cp2077-tweak-xl}
+kind: framework
+gate: runtime_independent
+detect:
+  paths: ["red4ext/plugins/TweakXL/TweakXL.dll"]   # provisional: confirm on the Windows rig (T4)
+sources:
+  - {kind: github_release, url: "https://github.com/psiberx/cp2077-tweak-xl/releases"}
+releases:
+  - version: "1.12.0"
+    date: 2026-10-25
+    game: {min: "2.5"}
+    requires:
+      - {mod: red4ext, version: ">=1.31.0"}
+      - {mod: redscript, version: ">=0.5.32"}
+    sha256:
+      red4ext/plugins/TweakXL/TweakXL.dll: 2765cc55833945422b333fd2db1ee67078b70558edef0f9bd453e00d55614951
+      red4ext/plugins/TweakXL/Data/ExtraFlats.dat: 7143fe962beb17c84851f6cb64e29fdc52323a41925465005a8bab22bff8a198
+      red4ext/plugins/TweakXL/Data/InheritanceMap.dat: dfc376014bfb3accc72e757f35bd3c78ed2052d8b876fcbd730127746f114c18
+    asset: {url: "https://github.com/psiberx/cp2077-tweak-xl/releases/download/v1.12.0/TweakXL-1.12.0.zip", sha256: a7c39b769e6c51d9f27412a101fb87e6a1fb8452f0e37ee0d1d1f3f44e656fa8}
+    evidence:
+      - {kind: readme, url: "https://github.com/psiberx/cp2077-tweak-xl/blob/0d13bb9057a0c70b35292c0d8a3c2076e2b6827a/README.md#L16", observed: 2026-10-30}
+      - {kind: readme, url: "https://github.com/psiberx/cp2077-tweak-xl/blob/0d13bb9057a0c70b35292c0d8a3c2076e2b6827a/README.md#L17", observed: 2026-10-30}
+      - {kind: readme, url: "https://github.com/psiberx/cp2077-tweak-xl/blob/0d13bb9057a0c70b35292c0d8a3c2076e2b6827a/README.md#L22", observed: 2026-10-30}
+  - version: "1.11.5"
+    date: 2026-10-19
+    game: {min: "2.3", max: "2.31"}
+    requires:
+      - {mod: red4ext, version: ">=1.28.0"}
+      - {mod: redscript, version: ">=0.5.27"}
+    sha256:
+      red4ext/plugins/TweakXL/TweakXL.dll: 58afce3c9b155106f45a45c0d891f9bb98e30e7beed8f3324dbf47bccb0a4dda
+      red4ext/plugins/TweakXL/Data/ExtraFlats.dat: 58a1df4c83feedc3bda63e22230e6d8a088321aa832c76b0203bc3538f1a0417
+      red4ext/plugins/TweakXL/Data/InheritanceMap.dat: 46315fe35bab47fa047bc0dc6b8e027032406e3f92cb9bd22b01bd96153e544b
+    asset: {url: "https://github.com/psiberx/cp2077-tweak-xl/releases/download/v1.11.5/TweakXL-1.11.5.zip", sha256: a6e75e16bdb454d2025f8ec4f85e6eebfca56aa90db9e54f5681574f5b03f49f}
+    evidence:
+      - {kind: readme, url: "https://github.com/psiberx/cp2077-tweak-xl/blob/78c581662bbc009b2ee3f4bda429c5d69d06c3db/README.md#L16", observed: 2026-10-30}
+      - {kind: readme, url: "https://github.com/psiberx/cp2077-tweak-xl/blob/78c581662bbc009b2ee3f4bda429c5d69d06c3db/README.md#L17", observed: 2026-10-30}
+      - {kind: readme, url: "https://github.com/psiberx/cp2077-tweak-xl/blob/78c581662bbc009b2ee3f4bda429c5d69d06c3db/README.md#L22", observed: 2026-10-30}

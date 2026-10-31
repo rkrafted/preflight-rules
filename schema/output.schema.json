@@ -1,0 +1,498 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Scan",
+  "type": "object",
+  "required": [
+    "command",
+    "engine",
+    "findings",
+    "frameworks",
+    "game",
+    "plugins",
+    "rules_bundle",
+    "schema",
+    "verdict"
+  ],
+  "properties": {
+    "actions": {
+      "description": "What to do, most important first; each action lists the findings it resolves.",
+      "default": [],
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Action"
+      }
+    },
+    "command": {
+      "type": "string"
+    },
+    "engine": {
+      "type": "string"
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Finding"
+      }
+    },
+    "frameworks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/FrameworkInfo"
+      }
+    },
+    "game": {
+      "$ref": "#/definitions/GameInfo"
+    },
+    "patch_day": {
+      "description": "Readiness board, shown when the game build changed or is less than a week old.",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/PatchDay"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "plugins": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/PluginInfo"
+      }
+    },
+    "rules_bundle": {
+      "$ref": "#/definitions/RulesBundleInfo"
+    },
+    "schema": {
+      "type": "string"
+    },
+    "verdict": {
+      "$ref": "#/definitions/Effect"
+    }
+  },
+  "definitions": {
+    "Action": {
+      "description": "One thing the user should do, and every finding it resolves (the report leads with these).",
+      "type": "object",
+      "required": [
+        "effect",
+        "findings",
+        "fix",
+        "title"
+      ],
+      "properties": {
+        "effect": {
+          "$ref": "#/definitions/Effect"
+        },
+        "findings": {
+          "description": "Ids of the findings this action resolves.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fix": {
+          "$ref": "#/definitions/FixOut"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "Confidence": {
+      "type": "string",
+      "enum": [
+        "established",
+        "likely",
+        "reported"
+      ]
+    },
+    "Effect": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "warn",
+            "info"
+          ]
+        },
+        {
+          "description": "Deploy/launch gate.",
+          "type": "string",
+          "enum": [
+            "block"
+          ]
+        }
+      ]
+    },
+    "Finding": {
+      "type": "object",
+      "required": [
+        "chain",
+        "confidence",
+        "effect",
+        "id",
+        "message",
+        "source",
+        "title"
+      ],
+      "properties": {
+        "chain": {
+          "description": "Why: observed facts plus the rule that connects them. Always at least two lines.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "confidence": {
+          "$ref": "#/definitions/Confidence"
+        },
+        "effect": {
+          "$ref": "#/definitions/Effect"
+        },
+        "evidence": {
+          "default": [],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fix": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/FixOut"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/definitions/Source"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "FixAction": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "install",
+            "update",
+            "disable",
+            "reorder",
+            "quarantine",
+            "clear_cache",
+            "advise"
+          ]
+        },
+        {
+          "description": "Run a Preflight catalogue fix (the finding names it in `fix_id`).",
+          "type": "string",
+          "enum": [
+            "repair"
+          ]
+        }
+      ]
+    },
+    "FixOut": {
+      "type": "object",
+      "required": [
+        "action"
+      ],
+      "properties": {
+        "action": {
+          "$ref": "#/definitions/FixAction"
+        },
+        "fix_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "target": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "FrameworkInfo": {
+      "type": "object",
+      "required": [
+        "detected_by",
+        "id",
+        "paths",
+        "version"
+      ],
+      "properties": {
+        "detected_by": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "paths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "FrameworkReadiness": {
+      "type": "object",
+      "required": [
+        "id",
+        "installed",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "installed": {
+          "type": "string"
+        },
+        "newest_for_build": {
+          "description": "Newest stable release recorded for this build.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "previous_for_build": {
+          "description": "The release before it: in week one, point releases often change behaviour.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "$ref": "#/definitions/Readiness"
+        }
+      }
+    },
+    "GameInfo": {
+      "type": "object",
+      "required": [
+        "patch",
+        "root"
+      ],
+      "properties": {
+        "exe_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "patch": {
+          "type": "string"
+        },
+        "platform": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Platform"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "root": {
+          "description": "Absolute path as given; support bundles replace the home prefix.",
+          "type": "string"
+        },
+        "store": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Store"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "PatchDay": {
+      "type": "object",
+      "required": [
+        "build_date",
+        "frameworks",
+        "plugins",
+        "to"
+      ],
+      "properties": {
+        "build_date": {
+          "description": "Release date of the current build.",
+          "type": "string"
+        },
+        "frameworks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FrameworkReadiness"
+          }
+        },
+        "from": {
+          "description": "Patch recorded in the lockfile, when it differs from the current one.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "plugins": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PluginReadiness"
+          }
+        },
+        "to": {
+          "type": "string"
+        }
+      }
+    },
+    "Platform": {
+      "type": "string",
+      "enum": [
+        "windows",
+        "proton"
+      ]
+    },
+    "PluginInfo": {
+      "type": "object",
+      "required": [
+        "name",
+        "path",
+        "status"
+      ],
+      "properties": {
+        "link_time": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "PluginReadiness": {
+      "type": "object",
+      "required": [
+        "name",
+        "status"
+      ],
+      "properties": {
+        "link_time": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/Readiness"
+        }
+      }
+    },
+    "Readiness": {
+      "oneOf": [
+        {
+          "description": "The installed release is recorded as supporting this build.",
+          "type": "string",
+          "enum": [
+            "ready"
+          ]
+        },
+        {
+          "description": "No record either way (unknown release, or a plugin built before the patch).",
+          "type": "string",
+          "enum": [
+            "unverified"
+          ]
+        },
+        {
+          "description": "The installed release is recorded as not supporting this build.",
+          "type": "string",
+          "enum": [
+            "known_broken"
+          ]
+        }
+      ]
+    },
+    "RulesBundleInfo": {
+      "type": "object",
+      "required": [
+        "path",
+        "release",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "release": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string"
+        }
+      }
+    },
+    "Source": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "rule",
+            "window",
+            "plugin",
+            "layout",
+            "signature",
+            "build"
+          ]
+        },
+        {
+          "description": "Two mods fighting over one resource or script target, or a script's declared minimum.",
+          "type": "string",
+          "enum": [
+            "conflict"
+          ]
+        }
+      ]
+    },
+    "Store": {
+      "type": "string",
+      "enum": [
+        "steam",
+        "gog",
+        "epic",
+        "xbox",
+        "unknown"
+      ]
+    }
+  }
+}

@@ -1,0 +1,35 @@
+schema: 1
+game: cyberpunk2077
+# Ordered oldest to newest. T3 adds 2.0 through 2.21 (research/R2.md timeline).
+# Dates for 2.0, 2.2, 2.3, 2.31 and 2.5 are evidenced in R2; the rest are inferred from the
+# first framework release naming the patch, so treat them as +-1 day. exe only where evidenced.
+builds:
+  - patch: "2.0"
+    date: 2023-09-21
+  - patch: "2.01"
+    date: 2023-10-05
+  - patch: "2.02"
+    date: 2023-10-26
+  - patch: "2.1"
+    date: 2023-12-05
+  - patch: "2.11"
+    date: 2024-01-31
+  - patch: "2.12"
+    date: 2024-02-29
+  - patch: "2.12a"
+    date: 2024-03-20
+  - patch: "2.13"
+    date: 2024-09-12
+  - patch: "2.2"
+    date: 2024-12-10
+  - patch: "2.21"
+    date: 2025-01-23
+  - patch: "2.3"
+    date: 2025-07-17
+  - patch: "2.31"
+    exe: ["3.0.80.51928"]
+    date: 2025-09-11
+  - patch: "2.5"
+    name: Edgerunners II
+    exe: ["3.0.88.46235"]
+    date: 2026-10-22

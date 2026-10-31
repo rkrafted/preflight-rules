@@ -1,0 +1,54 @@
+- id: S-input-loader-modified-vanilla-xml
+  log: input_loader
+  match: 'is not a known vanilla file'
+  cause: input_xml_modified
+  implicates: [input_loader]
+  fix: {action: advise}
+  message: "A base r6/config input XML was changed by a mod or by a game update, so Input Loader cannot merge bindings safely. Verify the game files to restore the vanilla XML, and keep mod inputs in r6/input."
+  evidence:
+    - {kind: code, url: "https://github.com/jackhumbert/cyberpunk2077-input-loader/blob/2758cd8ab54e340f4531a1e0adb13d8b0231d998/src/Main.cpp#L162", observed: 2026-10-30}
+  fixture: input-loader-modified-vanilla-xml.log
+
+- id: S-input-loader-press-none
+  log: input_loader
+  match: 'PRESS \[None\] TO CONTINUE'
+  cause: stale_input_ini
+  implicates: [input_loader]
+  fix: {action: advise}
+  message: "Input Loader could not delete a stale input_loader.ini, and the game shows PRESS [None] TO CONTINUE until it is removed by hand. Delete engine/config/platform/pc/input_loader.ini, then relaunch."
+  evidence:
+    - {kind: code, url: "https://github.com/jackhumbert/cyberpunk2077-input-loader/blob/2758cd8ab54e340f4531a1e0adb13d8b0231d998/src/Main.cpp#L182", observed: 2026-10-30}
+  fixture: input-loader-press-none.log
+
+- id: S-input-loader-cache-missing
+  log: input_loader
+  match: 'inputContexts\.xml or r6/cache/inputUserMappings\.xml is missing or empty'
+  cause: missing_input_cache
+  implicates: [input_loader]
+  fix: {action: advise}
+  message: "The game's cached input XMLs are missing or empty, so Input Loader cannot generate its ini and custom bindings stop working. Launch the game once to rebuild the cache, or verify the game files."
+  evidence:
+    - {kind: code, url: "https://github.com/jackhumbert/cyberpunk2077-input-loader/blob/2758cd8ab54e340f4531a1e0adb13d8b0231d998/src/Main.cpp#L193", observed: 2026-10-30}
+  fixture: input-loader-cache-missing.log
+
+- id: S-input-loader-originals-missing
+  log: input_loader
+  match: 'Could not load the game.s input xmls from r6/config'
+  cause: missing_input_originals
+  implicates: [input_loader]
+  fix: {action: advise}
+  message: "Input Loader could not read the vanilla r6/config input XMLs, so it generated nothing and no custom bindings apply. Verify the game files and check those XMLs exist."
+  evidence:
+    - {kind: code, url: "https://github.com/jackhumbert/cyberpunk2077-input-loader/blob/2758cd8ab54e340f4531a1e0adb13d8b0231d998/src/Main.cpp#L402", observed: 2026-10-30}
+  fixture: input-loader-originals-missing.log
+
+- id: S-input-loader-bad-xml
+  log: input_loader
+  match: 'XML document parsed with errors'
+  cause: malformed_input_xml
+  implicates: [input_loader]
+  fix: {action: advise}
+  message: "An input XML file is not valid XML (usually a hand-edited or merged file), so its bindings are ignored. Fix or reinstall the file named on the next log line."
+  evidence:
+    - {kind: code, url: "https://github.com/jackhumbert/cyberpunk2077-input-loader/blob/2758cd8ab54e340f4531a1e0adb13d8b0231d998/src/Main.cpp#L26", observed: 2026-10-30}
+  fixture: input-loader-bad-xml.log

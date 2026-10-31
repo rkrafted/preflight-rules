@@ -1,0 +1,4 @@
+# captured: https://github.com/WopsS/RED4ext/issues/58
+# captured: https://github.com/WopsS/RED4ext/issues/113
+[2024-03-22 07:19:40.963] [RED4ext] [error] Could not attach the hook for the main function. Detour error code: 6
+[2025-12-18 16:29:49.688] [RED4ext] [error] Could not attach the hook for collect saveable systems. Detour error code: 6

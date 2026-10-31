@@ -1,0 +1,40 @@
+# Rules that hold on every game build (no `when`). Patch-era minimums live in the per-patch files.
+- id: R-0002
+  type: needs_patch
+  subject: {mod: redscript, version: ">=1.0.0-preview"}
+  effect: warn
+  fix: {action: advise}
+  message: "Redscript 1.0 preview builds are developer snapshots that change the script language and are not supported for a modded game. Use the stable 0.5.32 release unless a mod author asked you for the preview."
+  evidence:
+    - {kind: issue, url: "https://github.com/jac3km4/redscript/issues/181", observed: 2026-10-30}
+    - {kind: release_note, url: "https://github.com/jac3km4/redscript/releases/tag/v1.0.0-preview.22", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0002
+
+- id: R-0004
+  type: env
+  subject: {mod: game}
+  effect: warn
+  requires_flags: ["missing_script_cache"]
+  fix: {action: advise}
+  message: "The compiled script file r6/cache/final.redscripts is missing, so the next launch recompiles every redscript mod before the main menu. That first start takes minutes; let it finish, and if it stops with a script error delete r6/cache and verify the game files."
+  evidence:
+    - {kind: readme, url: "https://github.com/jac3km4/redscript/blob/6b76cda1ac6226b3b53f58da580ca2904a98368b/README.md#L10", observed: 2026-10-30}
+    - {kind: code, url: "https://github.com/jac3km4/redscript/blob/b38ae1cb566a307fb36f801585117f8acdd4669c/crates/scc/core/src/lib.rs#L229", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0004
+
+- id: R-0007
+  type: recommends
+  subject: {mod: mod_settings}
+  object: {mod: input_loader}
+  effect: info
+  fix: {action: install, target: input_loader}
+  message: "Mod Settings uses Input Loader to process keybind XML, so without Input Loader the keybind options in mod menus cannot be bound. Install Input Loader if you use in-game keybinds."
+  evidence:
+    - {kind: readme, url: "https://github.com/jackhumbert/mod_settings/blob/26d6715f497a5d5af37171dd6d77e695cf5f6a21/readme.md#L48", observed: 2026-10-30}
+  confidence: established
+  origin: authored
+  fixture: R-0007

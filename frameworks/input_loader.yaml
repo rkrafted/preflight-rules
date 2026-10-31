@@ -1,0 +1,34 @@
+id: input_loader
+names: ["Input Loader"]
+ids: {github: jackhumbert/cyberpunk2077-input-loader}
+kind: framework
+gate: runtime_independent
+detect:
+  paths: ["red4ext/plugins/input_loader/input_loader.dll"]   # provisional: confirm on the Windows rig (T4)
+sources:
+  - {kind: github_release, url: "https://github.com/jackhumbert/cyberpunk2077-input-loader/releases"}
+releases:
+  - version: "0.2.6"
+    date: 2026-10-26
+    game: {min: "2.5"}
+    requires:
+      - {mod: red4ext, version: ">=1.31.0"}
+    sha256:
+      red4ext/plugins/input_loader/input_loader.dll: 341319105e9dfedc2f6fa81d492c55acd9bf6c39b60668738d2c34f96745de2a
+      red4ext/plugins/input_loader/inputUserMappings.xml: 68c8d86ce1f48c06e48da44d53b4fad8b7552dcb275ea640380303b76b037e87
+    asset: {url: "https://github.com/jackhumbert/cyberpunk2077-input-loader/releases/download/v0.2.6/input_loader_v0.2.6.zip", sha256: 6b420ba1e27b2e13c275a576a37a17d48771a0d35e52731f08e3584444a3e2b9}
+    evidence:
+      - {kind: readme, url: "https://github.com/jackhumbert/cyberpunk2077-input-loader/blob/2758cd8ab54e340f4531a1e0adb13d8b0231d998/requirements.md#L2", observed: 2026-10-30}
+      - {kind: readme, url: "https://github.com/jackhumbert/cyberpunk2077-input-loader/blob/2758cd8ab54e340f4531a1e0adb13d8b0231d998/readme.md#L7", observed: 2026-10-30}
+  - version: "0.2.3"
+    date: 2025-07-19
+    game: {min: "2.3", max: "2.31"}
+    requires:
+      - {mod: red4ext, version: ">=1.27.0"}
+    sha256:
+      red4ext/plugins/input_loader/input_loader.dll: 33a57a4bacfe8a677de98b8fe338e0d9ddb184b851b6bd48587641d3423c9394
+      red4ext/plugins/input_loader/inputUserMappings.xml: a57bd58879f3846f300ec9c30fc8111890b9d3aeb6b82842dc4070930e0ff48e
+    asset: {url: "https://github.com/jackhumbert/cyberpunk2077-input-loader/releases/download/v0.2.3/input_loader_v0.2.3.zip", sha256: 6011515264bfb582591bf2ce66e956ac9c7993dfb5046590ba3ee7625af603ee}
+    evidence:
+      - {kind: readme, url: "https://github.com/jackhumbert/cyberpunk2077-input-loader/blob/343c03c59a2bc4fd1808220953ede7a846e7e696/requirements.md#L2", observed: 2026-10-30}
+      - {kind: readme, url: "https://github.com/jackhumbert/cyberpunk2077-input-loader/blob/343c03c59a2bc4fd1808220953ede7a846e7e696/readme.md#L7", observed: 2026-10-30}

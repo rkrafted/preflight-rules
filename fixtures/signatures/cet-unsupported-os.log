@@ -1,0 +1,2 @@
+# captured: https://github.com/maximegmd/CyberEngineTweaks/issues/1045
+[2025-12-15 09:19:46 UTC-07:00] [error] [void *__cdecl D3D12::CRenderNode_Present_InternalPresent(int *,unsigned char,unsigned int)] [472] Unsupported OS!

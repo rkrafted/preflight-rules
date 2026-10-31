@@ -1,0 +1,34 @@
+id: red4ext
+names: ["RED4ext"]
+ids: {github: wopss/RED4ext}
+kind: framework
+gate: hard_min
+detect:
+  paths: ["red4ext/RED4ext.dll"]   # provisional: confirm on the Windows rig (T4)
+sources:
+  - {kind: github_release, url: "https://github.com/wopss/RED4ext/releases"}
+releases:
+  - version: "1.31.0"
+    date: 2026-10-24
+    game: {min: "2.5"}
+    requires:
+      - {mod: redscript, version: ">=0.5.32"}   # runs the redscript compiler in-process via scc_lib.dll
+    sha256:
+      red4ext/RED4ext.dll: 58ddfe43766aa91249d11671b55a8323d5ec017f816d847affe4b6201dcd0709
+      bin/x64/winmm.dll: c78308921e6697473b6407bf2a4ba1ac4c157b247031fbcdd91af5063a52af7d
+    asset: {url: "https://github.com/wopss/RED4ext/releases/download/v1.31.0/red4ext-1.31.0.zip", sha256: b9ae4351f547f90af58dfbf7445d45c55cd5ba24fbee27fb16fb5d91e9df621e}
+    evidence:
+      - {kind: code, url: "https://github.com/wopss/RED4ext/blob/9f135ac339b00c55a68d06ce7106e960dd82962a/src/dll/App.cpp#L96", observed: 2026-10-30}
+      - {kind: code, url: "https://github.com/wopss/RED4ext/blob/9f135ac339b00c55a68d06ce7106e960dd82962a/src/dll/Hooks/ExecuteProcess.cpp#L27", observed: 2026-10-30}
+  - version: "1.30.0"
+    date: 2026-03-09
+    game: {min: "2.31", max: "2.31"}
+    requires:
+      - {mod: redscript, version: ">=0.5.31"}
+    sha256:
+      red4ext/RED4ext.dll: 59309a78a9606481d13f87e8fbf9ea9c0b735115389ded0295537180c9e52511
+      bin/x64/winmm.dll: 22690f3ac5efbfa825b758028f114d0e7d83833160716f199c56056db01fc8be
+    asset: {url: "https://github.com/wopss/RED4ext/releases/download/v1.30.0/red4ext-1.30.0.zip", sha256: 3a72225c9d2c46c99f4a4159d952b9d24366357c2423eb7ea255c84e9e11c0b0}
+    evidence:
+      - {kind: code, url: "https://github.com/wopss/RED4ext/blob/c52c8d802f67013cceae722d9996a3418608b991/src/dll/App.cpp#L95", observed: 2026-10-30}
+      - {kind: code, url: "https://github.com/wopss/RED4ext/blob/c52c8d802f67013cceae722d9996a3418608b991/src/dll/Hooks/ExecuteProcess.cpp#L27", observed: 2026-10-30}

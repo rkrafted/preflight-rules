@@ -1,0 +1,3 @@
+# synthetic: replace from rig
+# source: https://github.com/psiberx/cp2077-tweak-xl/blob/3875f1debedefd080f471b3db9b929566137eb88/src/App/Tweaks/Declarative/Yaml/YamlReader.cpp#L69
+Bad format. Unexpected data at the top level.

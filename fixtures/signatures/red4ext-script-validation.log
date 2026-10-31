@@ -1,0 +1,2 @@
+# captured: https://github.com/psiberx/cp2077-codeware/issues/34
+[2025-07-18 15:00:22.216] [RED4ext] [error] Script validation error: Native class 'gameuiPhotoModeMenuController' has declared base class 'inkGameController' that is different than current one 'gameuiMenuGameController'
