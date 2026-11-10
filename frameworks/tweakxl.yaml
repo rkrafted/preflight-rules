@@ -8,6 +8,16 @@ detect:
 sources:
   - {kind: github_release, url: "https://github.com/psiberx/cp2077-tweak-xl/releases"}
 releases:
+  - version: "1.12.1-rc.1"   # added by the release watcher: set the game window, verify, then make it stable
+    date: 2026-11-10
+    channel: preview
+    sha256:
+      red4ext/plugins/TweakXL/TweakXL.dll: 4a8ec27e91442a50395d081b16ba27496cafb9a5c91bcc87ce67d072acb0eaa3
+      red4ext/plugins/TweakXL/Data/ExtraFlats.dat: 7143fe962beb17c84851f6cb64e29fdc52323a41925465005a8bab22bff8a198
+      red4ext/plugins/TweakXL/Data/InheritanceMap.dat: dfc376014bfb3accc72e757f35bd3c78ed2052d8b876fcbd730127746f114c18
+    asset: {url: "https://github.com/psiberx/cp2077-tweak-xl/releases/download/v1.12.1-rc.1/TweakXL-1.12.1.zip", sha256: 65f898825af91e819fb56223aec02b7f916bc793372a77e3e06ef859f4eae42f}
+    evidence:
+      - {kind: release_note, url: "https://github.com/psiberx/cp2077-tweak-xl/releases/tag/v1.12.1-rc.1"}
   - version: "1.12.0"
     date: 2026-10-25
     game: {min: "2.5"}

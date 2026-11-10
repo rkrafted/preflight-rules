@@ -8,6 +8,15 @@ detect:
 sources:
   - {kind: github_release, url: "https://github.com/psiberx/cp2077-codeware/releases"}
 releases:
+  - version: "1.21.3-rc.1"   # added by the release watcher: set the game window, verify, then make it stable
+    date: 2026-11-10
+    channel: preview
+    sha256:
+      red4ext/plugins/Codeware/Codeware.dll: dfba2e6e9442f6e1cde09bb788ca25b3b730d280186f4866cac11f2d0e1ad336
+      red4ext/plugins/Codeware/Scripts/Codeware.Global.reds: 14ed9b70b6c6c4699c7e5e597f5477c6b347dd57822bb4571fda4dc8f4ab0f7b
+    asset: {url: "https://github.com/psiberx/cp2077-codeware/releases/download/v1.21.3-rc.1/Codeware-1.21.3.zip", sha256: 0fe02c02c2c3664b0e6385d754bf1c8c082f584a39bb614bb0b78c3ae04aff42}
+    evidence:
+      - {kind: release_note, url: "https://github.com/psiberx/cp2077-codeware/releases/tag/v1.21.3-rc.1"}
   - version: "1.21.2"
     date: 2026-10-28
     game: {min: "2.5"}
