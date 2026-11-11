@@ -8,6 +8,15 @@ detect:
 sources:
   - {kind: github_release, url: "https://github.com/jac3km4/redscript/releases"}
 releases:
+  - version: "1.0.0"   # added by the release watcher: set the game window, verify, then make it stable
+    date: 2026-11-10
+    channel: rc
+    sha256:
+      engine/tools/scc_lib.dll: faac4047359f0455d7754b7114fa952cb39f6bdd23509b2078af7bd0c8ed01f2
+      engine/tools/scc.exe: 787bd0487d6cea6660d3c5db544aaf205bffd69d64822f3deb2a01406e63a700
+    asset: {url: "https://github.com/jac3km4/redscript/releases/download/v1.0.0/redscript-v1.0.0-windows.zip", sha256: ad498c87698c1bc2878bfd89b58147d3817137ed0fff9d6b2521a6e1bd3043d4}
+    evidence:
+      - {kind: release_note, url: "https://github.com/jac3km4/redscript/releases/tag/v1.0.0"}
   - version: "0.5.32"
     date: 2026-10-22
     game: {min: "2.5"}
