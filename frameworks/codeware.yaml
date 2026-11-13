@@ -8,6 +8,33 @@ detect:
 sources:
   - {kind: github_release, url: "https://github.com/psiberx/cp2077-codeware/releases"}
 releases:
+  - version: "1.21.4"   # added by the release watcher: set the game window, verify, then make it stable
+    date: 2026-11-13
+    channel: rc
+    sha256:
+      red4ext/plugins/Codeware/Codeware.dll: 7aae3b634bd8a55c9f408b5f6ed7b33396918864eed94184995ec3c259d96f71
+      red4ext/plugins/Codeware/Scripts/Codeware.Global.reds: 2fa8ff59954873fa6e529ef0cd4e4412fc1501ea7b89cede5f7790ac2707de2e
+    asset: {url: "https://github.com/psiberx/cp2077-codeware/releases/download/v1.21.4/Codeware-1.21.4.zip", sha256: cb929d1edb72e23d7e7cc6420014b6557c363992ed6092c8453be9b185d0376b}
+    evidence:
+      - {kind: release_note, url: "https://github.com/psiberx/cp2077-codeware/releases/tag/v1.21.4"}
+  - version: "1.21.3"   # added by the release watcher: set the game window, verify, then make it stable
+    date: 2026-11-12
+    channel: rc
+    sha256:
+      red4ext/plugins/Codeware/Codeware.dll: fb5fc2160fa4ac139a3e2e5c8ad2b7baaaec9c8c7ef679bc7cfeeea0a8089c4c
+      red4ext/plugins/Codeware/Scripts/Codeware.Global.reds: c463ddc1b295c68138726653fd0c3723ccb617d1563fbcc32663451b9dd17084
+    asset: {url: "https://github.com/psiberx/cp2077-codeware/releases/download/v1.21.3/Codeware-1.21.3.zip", sha256: 89e68e0da6e3d2d43ff8c17b69c592f1a7d8345727d098a70ad2e1f583eaf516}
+    evidence:
+      - {kind: release_note, url: "https://github.com/psiberx/cp2077-codeware/releases/tag/v1.21.3"}
+  - version: "1.21.3-rc.1"   # added by the release watcher: set the game window, verify, then make it stable
+    date: 2026-11-10
+    channel: preview
+    sha256:
+      red4ext/plugins/Codeware/Codeware.dll: 8f72d840e23d35981459c2072757ae8ac1cb082dbee11db28dd4ca79fdf902c0
+      red4ext/plugins/Codeware/Scripts/Codeware.Global.reds: c463ddc1b295c68138726653fd0c3723ccb617d1563fbcc32663451b9dd17084
+    asset: {url: "https://github.com/psiberx/cp2077-codeware/releases/download/v1.21.3-rc.1/Codeware-1.21.3.zip", sha256: 8b833d77cd9403b056cc291b7dd8c5065d820985400d5ccbcbdee13b7669fa19}
+    evidence:
+      - {kind: release_note, url: "https://github.com/psiberx/cp2077-codeware/releases/tag/v1.21.3-rc.1"}
   - version: "1.21.2"
     date: 2026-10-28
     game: {min: "2.5"}
