@@ -8,6 +8,26 @@ detect:
 sources:
   - {kind: github_release, url: "https://github.com/jackhumbert/mod_settings/releases"}
 releases:
+  - version: "0.2.30"   # added by the release watcher: set the game window, verify, then make it stable
+    date: 2026-11-12
+    channel: rc
+    sha256:
+      red4ext/plugins/mod_settings/ModSettings.archive: 6741ec88617def8ec6c42b5fe54970923ac9dc3413721dd10850ac02d56d5c2a
+      red4ext/plugins/mod_settings/mod_settings.dll: 7c40d2f8ef9e505f32daa17fdd41da1d49b2bb196ef70a269e62f98341e9dce4
+      red4ext/plugins/mod_settings/packed.reds: d27eb066d6bc132c729aff65687e19f566d52799dc060745c083987943feacd7
+    asset: {url: "https://github.com/jackhumbert/mod_settings/releases/download/v0.2.30/mod_settings_v0.2.30.zip", sha256: bc007bf72d55e4a6ed4ac7df14a5f6b448ffe50c777b0a15833343c66ba4cde7}
+    evidence:
+      - {kind: release_note, url: "https://github.com/jackhumbert/mod_settings/releases/tag/v0.2.30"}
+  - version: "0.2.29"   # added by the release watcher: set the game window, verify, then make it stable
+    date: 2026-11-09
+    channel: rc
+    sha256:
+      red4ext/plugins/mod_settings/ModSettings.archive: 6741ec88617def8ec6c42b5fe54970923ac9dc3413721dd10850ac02d56d5c2a
+      red4ext/plugins/mod_settings/mod_settings.dll: 7206edc601a14725be40fc799a37a2c3e491d30a4a368f4c33bdcd71afb1f6cb
+      red4ext/plugins/mod_settings/packed.reds: 14367bdadcc94864470ad8ab8cc9a5f7807c2a90f4d2bfecdda3ec8a406bc114
+    asset: {url: "https://github.com/jackhumbert/mod_settings/releases/download/v0.2.29/mod_settings_v0.2.29.zip", sha256: 048da49bbfe1661273ce726bdea82797ac5d33360a800b9a002c8c805d530f06}
+    evidence:
+      - {kind: release_note, url: "https://github.com/jackhumbert/mod_settings/releases/tag/v0.2.29"}
   - version: "0.2.28"
     date: 2026-10-28
     game: {min: "2.5"}
