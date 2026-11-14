@@ -8,6 +8,42 @@ detect:
 sources:
   - {kind: github_release, url: "https://github.com/psiberx/cp2077-archive-xl/releases"}
 releases:
+  - version: "1.28.8"   # added by the release watcher: set the game window, verify, then make it stable
+    date: 2026-11-13
+    channel: rc
+    sha256:
+      red4ext/plugins/ArchiveXL/ArchiveXL.dll: 2087a6a786a5ee2d6763574356bc8c8139a281872887d3e9efc720c74bfa8756
+      red4ext/plugins/ArchiveXL/Bundle/ArchiveXL.archive: 8efa034dca39d563326eda65b63be87e66953b28f67145c81b2211e00d1c27d9
+    asset: {url: "https://github.com/psiberx/cp2077-archive-xl/releases/download/v1.28.8/ArchiveXL-1.28.8.zip", sha256: b2a1c5777d3d0484475e1a1c034a1dc1dcada386595335e480c134fe7128a270}
+    evidence:
+      - {kind: release_note, url: "https://github.com/psiberx/cp2077-archive-xl/releases/tag/v1.28.8"}
+  - version: "1.28.7"   # added by the release watcher: set the game window, verify, then make it stable
+    date: 2026-11-12
+    channel: rc
+    sha256:
+      red4ext/plugins/ArchiveXL/ArchiveXL.dll: 8400c4a1cdca54a555750d583e55b94ea0828ac5bae9dc38baac8317f045fad7
+      red4ext/plugins/ArchiveXL/Bundle/ArchiveXL.archive: 8efa034dca39d563326eda65b63be87e66953b28f67145c81b2211e00d1c27d9
+    asset: {url: "https://github.com/psiberx/cp2077-archive-xl/releases/download/v1.28.7/ArchiveXL-1.28.7.zip", sha256: 8936787d7d5c7b9f9c60be1f08dc93c8afce8040704c2f5965f474e10e010cad}
+    evidence:
+      - {kind: release_note, url: "https://github.com/psiberx/cp2077-archive-xl/releases/tag/v1.28.7"}
+  - version: "1.28.7-rc.2"   # added by the release watcher: set the game window, verify, then make it stable
+    date: 2026-11-10
+    channel: preview
+    sha256:
+      red4ext/plugins/ArchiveXL/ArchiveXL.dll: 746c57436331b0e5a7d390481155a726d18844fb7c1d14e8bd550c59c5fc09ec
+      red4ext/plugins/ArchiveXL/Bundle/ArchiveXL.archive: 8efa034dca39d563326eda65b63be87e66953b28f67145c81b2211e00d1c27d9
+    asset: {url: "https://github.com/psiberx/cp2077-archive-xl/releases/download/v1.28.7-rc.2/ArchiveXL-1.28.7.zip", sha256: a64988bf52804f2dfdbc1797cc8275fa7151048daa89be6b291dfc3ae419f863}
+    evidence:
+      - {kind: release_note, url: "https://github.com/psiberx/cp2077-archive-xl/releases/tag/v1.28.7-rc.2"}
+  - version: "1.28.7-rc.1"   # added by the release watcher: set the game window, verify, then make it stable
+    date: 2026-11-01
+    channel: preview
+    sha256:
+      red4ext/plugins/ArchiveXL/ArchiveXL.dll: b56df4c46ef6b9d3905065c8018de40a611a47761204e2bae6b3d1c6275c9d4d
+      red4ext/plugins/ArchiveXL/Bundle/ArchiveXL.archive: 8efa034dca39d563326eda65b63be87e66953b28f67145c81b2211e00d1c27d9
+    asset: {url: "https://github.com/psiberx/cp2077-archive-xl/releases/download/v1.28.7-rc.1/ArchiveXL-1.28.7.zip", sha256: 0400b64771a6e2fa61066528510caafcf13e97f0416c8604ffc14d6c2f370521}
+    evidence:
+      - {kind: release_note, url: "https://github.com/psiberx/cp2077-archive-xl/releases/tag/v1.28.7-rc.1"}
   - version: "1.28.6"
     date: 2026-10-29
     game: {min: "2.5"}
