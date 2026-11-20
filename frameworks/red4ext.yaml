@@ -8,6 +8,15 @@ detect:
 sources:
   - {kind: github_release, url: "https://github.com/wopss/RED4ext/releases"}
 releases:
+  - version: "1.31.1"   # added by the release watcher: set the game window, verify, then make it stable
+    date: 2026-11-11
+    channel: rc
+    sha256:
+      bin/x64/winmm.dll: 531efcb3d50dbbd03abd385963cf6cea97a24cdbed4a45cbb1997733b8feaf47
+      red4ext/RED4ext.dll: 988f26cc714e795c5f4dbe93c381c8bf748551f4fd022d529a0d56e863d65d38
+    asset: {url: "https://github.com/wopss/RED4ext/releases/download/v1.31.1/red4ext-1.31.1.zip", sha256: ce10bda503fd48c8674ef3e517d635636a262c089055f189caabeb300eef7932}
+    evidence:
+      - {kind: release_note, url: "https://github.com/wopss/RED4ext/releases/tag/v1.31.1"}
   - version: "1.31.0"
     date: 2026-10-24
     game: {min: "2.5"}
