@@ -8,6 +8,33 @@ detect:
 sources:
   - {kind: github_release, url: "https://github.com/jac3km4/redscript/releases"}
 releases:
+  - version: "1.0.2"   # added by the release watcher: set the game window, verify, then make it stable
+    date: 2026-11-23
+    channel: rc
+    sha256:
+      engine/tools/scc_lib.dll: 3ceb2d54259b5b60acc270141b335b2d245467724f166f53b0c2a53c76c4780d
+      engine/tools/scc.exe: 4eb50fe50d82ebf3be57580339d4d1750f481de30db0edefed324ff2bb5d4b93
+    asset: {url: "https://github.com/jac3km4/redscript/releases/download/v1.0.2/redscript-v1.0.2-windows.zip", sha256: c29604bb56bb7ee6799dc66b749b4f52d3688fa99574c41c1a0ab8ee955743c0}
+    evidence:
+      - {kind: release_note, url: "https://github.com/jac3km4/redscript/releases/tag/v1.0.2"}
+  - version: "1.0.1"   # added by the release watcher: set the game window, verify, then make it stable
+    date: 2026-11-15
+    channel: rc
+    sha256:
+      engine/tools/scc_lib.dll: 143189de199ae7c2bffe869693cdf952a41bc0a66c71ce7453415f42f6221cb7
+      engine/tools/scc.exe: 3a3d2ce81043b5f5dd4816d53dfc30c2fb17be0edb0dfce32ce3c43fc8a21778
+    asset: {url: "https://github.com/jac3km4/redscript/releases/download/v1.0.1/redscript-v1.0.1-windows.zip", sha256: 270d593cfd77e35aa099a3b397690bf5a17311b29ba231795ed1af093ea331df}
+    evidence:
+      - {kind: release_note, url: "https://github.com/jac3km4/redscript/releases/tag/v1.0.1"}
+  - version: "1.0.0"   # added by the release watcher: set the game window, verify, then make it stable
+    date: 2026-11-10
+    channel: rc
+    sha256:
+      engine/tools/scc_lib.dll: faac4047359f0455d7754b7114fa952cb39f6bdd23509b2078af7bd0c8ed01f2
+      engine/tools/scc.exe: 787bd0487d6cea6660d3c5db544aaf205bffd69d64822f3deb2a01406e63a700
+    asset: {url: "https://github.com/jac3km4/redscript/releases/download/v1.0.0/redscript-v1.0.0-windows.zip", sha256: ad498c87698c1bc2878bfd89b58147d3817137ed0fff9d6b2521a6e1bd3043d4}
+    evidence:
+      - {kind: release_note, url: "https://github.com/jac3km4/redscript/releases/tag/v1.0.0"}
   - version: "0.5.32"
     date: 2026-10-22
     game: {min: "2.5"}
